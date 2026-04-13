@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curso TA + EpE — dis+capacidad</title>
+<title>Curso TA + EpE — Bloque 1 · dis+capacidad</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
@@ -27,15 +27,27 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; font-family: var(--font-b); background: var(--c-bg); color: var(--c-ink); overflow: hidden; }
 
-  #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--c-accent); width: 0%; transition: width var(--t); z-index: 1000; }
+  /* ── PROGRESS (clickable) ── */
+  #progress-track {
+    position: fixed; top: 0; left: 0; right: 0; height: 16px; z-index: 1000; cursor: pointer;
+  }
+  #progress-track::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: rgba(0,0,0,0.09); transition: height .2s, background .2s;
+  }
+  #progress-track:hover::before { height: 5px; background: rgba(0,0,0,0.15); }
+  #progress-bar {
+    position: absolute; bottom: 0; left: 0; height: 3px;
+    background: var(--c-accent); width: 0%; transition: width var(--t); pointer-events: none;
+  }
+  #progress-track:hover #progress-bar { height: 5px; }
 
+  /* ── DECK ── */
   #deck { position: fixed; inset: 0; }
-
   .slide {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
+    position: absolute; inset: 0; display: flex; flex-direction: column;
     justify-content: center; align-items: center;
-    padding: clamp(20px,4vw,60px) clamp(20px,5vw,80px) 72px;
+    padding: clamp(24px,4vw,64px) clamp(24px,5.5vw,96px) 76px;
     opacity: 0; pointer-events: none;
     transition: opacity var(--t), transform var(--t);
     transform: translateX(40px);
@@ -43,71 +55,123 @@
   .slide.active  { opacity: 1; pointer-events: all; transform: translateX(0); }
   .slide.exit    { opacity: 0; transform: translateX(-40px); }
 
-  /* COVER */
+  /* ── PORTADA ── */
   .slide-cover { background: var(--c-ink); color: var(--c-white); }
-  .slide-cover .eyebrow { font-size: clamp(10px,1.1vw,13px); letter-spacing: .14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 14px; font-weight: 600; }
-  .slide-cover h1 { font-family: var(--font-d); font-size: clamp(1.9rem,5.5vw,4.6rem); font-weight: 700; line-height: 1.06; max-width: 14ch; text-align: center; }
-  .slide-cover .subtitle { margin-top: 18px; font-size: clamp(13px,1.6vw,18px); color: var(--c-light); font-weight: 300; text-align: center; max-width: 44ch; }
-  .logo-area { margin-top: 44px; display: flex; align-items: center; gap: 10px; opacity: .65; }
+  .slide-cover .eyebrow {
+    font-size: clamp(11px,1vw,13px); letter-spacing: .16em; text-transform: uppercase;
+    color: var(--c-accent); margin-bottom: 16px; font-weight: 600;
+  }
+  .slide-cover h1 {
+    font-family: var(--font-d); font-size: clamp(2.2rem,6vw,5.2rem);
+    font-weight: 700; line-height: 1.05; max-width: 14ch; text-align: center;
+  }
+  .slide-cover .subtitle {
+    margin-top: 20px; font-size: clamp(1rem,1.5vw,1.35rem);
+    color: var(--c-light); font-weight: 300; text-align: center; max-width: 44ch;
+  }
+  .logo-area { margin-top: 48px; display: flex; align-items: center; gap: 10px; opacity: .6; }
   .logo-dot  { width: 9px; height: 9px; border-radius: 50%; }
 
-  /* MODULE */
+  /* ── MODULE / SEPARATOR ── */
   .slide-module { color: var(--c-white); }
-  .slide-module .m-num { font-family: var(--font-d); font-size: clamp(4rem,12vw,10rem); font-weight: 700; opacity: .14; line-height: 1; position: absolute; bottom: 0; right: clamp(16px,4vw,60px); user-select: none; }
-  .slide-module .mcontent { position: relative; z-index: 1; text-align: center; display:flex; flex-direction:column; align-items:center; gap:12px; }
-  .blq { font-size: clamp(10px,1.1vw,12px); letter-spacing: .18em; text-transform: uppercase; font-weight: 600; opacity: .7; }
-  .slide-module h2 { font-family: var(--font-d); font-size: clamp(1.7rem,4.5vw,3.8rem); font-weight: 700; line-height: 1.1; max-width: 18ch; }
-  .slide-module p.sub { font-size: clamp(12px,1.4vw,16px); max-width: 38ch; font-weight: 300; opacity: .8; }
+  .slide-module .m-num {
+    font-family: var(--font-d); font-size: clamp(5rem,14vw,12rem); font-weight: 700;
+    opacity: .12; line-height: 1; position: absolute; bottom: -0.1em; right: clamp(16px,4vw,64px);
+    user-select: none;
+  }
+  .slide-module .mcontent {
+    position: relative; z-index: 1; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .blq { font-size: clamp(10px,1vw,12px); letter-spacing: .2em; text-transform: uppercase; font-weight: 600; opacity: .7; }
+  .slide-module h2 {
+    font-family: var(--font-d); font-size: clamp(2rem,5.5vw,4.8rem);
+    font-weight: 700; line-height: 1.08; max-width: 18ch;
+  }
+  .slide-module p.sub { font-size: clamp(1rem,1.4vw,1.3rem); max-width: 40ch; font-weight: 300; opacity: .8; }
 
-  /* CONTENT */
+  /* ── CONTENT BASE ── */
   .slide-content { background: var(--c-white); }
-  .inner { width: 100%; max-width: 980px; display: flex; flex-direction: column; gap: 22px; }
-  h3 { font-family: var(--font-d); font-size: clamp(1.3rem,3vw,2.5rem); font-weight: 700; line-height: 1.15; }
+  .inner { width: 100%; max-width: 1020px; display: flex; flex-direction: column; gap: 28px; }
+
+  /* ── TYPOGRAPHY ── */
+  h3 {
+    font-family: var(--font-d); font-size: clamp(2.1rem,4.2vw,3.8rem);
+    font-weight: 700; line-height: 1.1;
+  }
   h3 .accent { color: var(--c-accent); }
   h3 .blue   { color: var(--c-blue); }
   h3 .orange { color: var(--c-orange); }
   h3 .green  { color: var(--c-green); }
+  h3 .teal   { color: var(--c-teal); }
 
-  /* SPLIT */
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; width: 100%; max-width: 980px; }
-  .split.rev { direction: rtl; }
-  .split.rev > * { direction: ltr; }
-
-  /* BIG BODY */
-  .big { font-size: clamp(13px,1.6vw,19px); color: var(--c-mid); line-height: 1.65; font-weight: 300; max-width: 52ch; }
+  /* Big statement — the slide's central message */
+  .big {
+    font-size: clamp(1.1rem,1.85vw,1.6rem); color: var(--c-mid);
+    line-height: 1.6; font-weight: 300; max-width: 56ch;
+  }
   .big strong { color: var(--c-ink); font-weight: 500; }
   .big em { font-style: italic; }
 
-  /* PILLS */
-  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-  .pill { background: var(--c-bg); border-radius: 100px; padding: 6px 14px; font-size: clamp(10px,1vw,13px); font-weight: 500; color: var(--c-mid); display: flex; align-items: center; gap: 7px; }
-  .dot  { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  /* Giant stat for impact */
+  .big-stat {
+    font-family: var(--font-d); font-size: clamp(4.5rem,11vw,10rem);
+    font-weight: 700; line-height: 1; color: var(--c-accent);
+  }
+  .big-stat-label {
+    font-size: clamp(0.85rem,1.1vw,1rem); color: var(--c-mid);
+    text-transform: uppercase; letter-spacing: .1em; font-weight: 600; margin-top: 4px;
+  }
 
-  /* STATS */
-  .stats { display: flex; gap: 12px; flex-wrap: wrap; }
-  .stat  { background: var(--c-bg); border-radius: var(--radius); padding: 16px 20px; flex: 1 1 120px; min-width: 100px; }
-  .stat .n { font-family: var(--font-d); font-size: clamp(1.4rem,2.8vw,2.6rem); font-weight: 700; line-height: 1; color: var(--c-accent); }
-  .stat .l { font-size: clamp(10px,1vw,11px); color: var(--c-mid); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: .07em; }
+  /* ── SPLIT ── */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; width: 100%; max-width: 1020px; }
+  .split.rev { direction: rtl; }
+  .split.rev > * { direction: ltr; }
 
-  /* CARDS */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: 12px; width: 100%; }
-  .card  { background: var(--c-bg); border-radius: var(--radius); padding: 16px; border-left: 4px solid var(--c-accent); }
+  /* ── PILLS ── */
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill {
+    background: var(--c-bg); border-radius: 100px; padding: 8px 18px;
+    font-size: clamp(0.85rem,1.1vw,1rem); font-weight: 500; color: var(--c-mid);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── STATS ── */
+  .stats { display: flex; gap: 14px; flex-wrap: wrap; }
+  .stat  { background: var(--c-bg); border-radius: var(--radius); padding: 18px 22px; flex: 1 1 120px; min-width: 100px; }
+  .stat .n {
+    font-family: var(--font-d); font-size: clamp(1.6rem,3.2vw,3rem);
+    font-weight: 700; line-height: 1; color: var(--c-accent);
+  }
+  .stat .l { font-size: clamp(0.72rem,0.9vw,0.85rem); color: var(--c-mid); margin-top: 5px; font-weight: 500; text-transform: uppercase; letter-spacing: .07em; }
+
+  /* ── CARDS ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 14px; width: 100%; }
+  .card  { background: var(--c-bg); border-radius: var(--radius); padding: 18px 20px; border-left: 4px solid var(--c-accent); }
   .card.b { border-color: var(--c-blue); }
   .card.o { border-color: var(--c-orange); }
   .card.t { border-color: var(--c-teal); }
   .card.g { border-color: var(--c-green); }
-  .card h4 { font-family: var(--font-d); font-size: clamp(11px,1.2vw,14px); font-weight: 700; margin-bottom: 4px; color: var(--c-ink); }
-  .card p  { font-size: clamp(10px,1vw,12px); color: var(--c-mid); line-height: 1.55; }
+  .card h4 { font-family: var(--font-d); font-size: clamp(0.92rem,1.2vw,1.1rem); font-weight: 700; margin-bottom: 6px; color: var(--c-ink); }
+  .card p  { font-size: clamp(0.85rem,1.05vw,0.98rem); color: var(--c-mid); line-height: 1.6; }
 
-  /* STEPS */
-  .steps { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-  .step  { display: flex; align-items: flex-start; gap: 12px; }
-  .s-num { font-family: var(--font-d); font-size: 11px; font-weight: 700; color: var(--c-white); background: var(--c-accent); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-  .s-txt { font-size: clamp(11px,1.2vw,14px); line-height: 1.5; color: var(--c-mid); }
+  /* ── STEPS ── */
+  .steps { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+  .step  { display: flex; align-items: flex-start; gap: 14px; }
+  .s-num {
+    font-family: var(--font-d); font-size: 11px; font-weight: 700; color: var(--c-white);
+    background: var(--c-accent); min-width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .s-txt { font-size: clamp(0.88rem,1.2vw,1.06rem); line-height: 1.55; color: var(--c-mid); }
   .s-txt strong { color: var(--c-ink); }
 
-  /* HIGHLIGHT */
-  .hl { background: #FFF2F0; border: 1.5px solid #F9C8C0; border-radius: var(--radius); padding: 13px 18px; font-size: clamp(11px,1.1vw,13px); color: var(--c-mid); line-height: 1.6; }
+  /* ── HIGHLIGHT ── */
+  .hl {
+    background: #FFF2F0; border: 1.5px solid #F9C8C0; border-radius: var(--radius);
+    padding: 14px 20px; font-size: clamp(0.9rem,1.2vw,1.05rem); color: var(--c-mid); line-height: 1.6;
+  }
   .hl strong { color: var(--c-accent); }
   .hl.blue   { background: #EFF3FF; border-color: #B8CCFF; }
   .hl.blue strong { color: var(--c-blue); }
@@ -115,70 +179,84 @@
   .hl.green strong { color: var(--c-green); }
   .hl.orange { background: #FFF8F0; border-color: #FFD9AA; }
   .hl.orange strong { color: var(--c-orange); }
+  .hl.teal   { background: #EFF9FF; border-color: #A8E0F0; }
+  .hl.teal strong { color: var(--c-teal); }
 
-  /* TAG */
-  .tag { display: inline-block; background: var(--c-accent); color: white; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border-radius: 100px; padding: 3px 10px; }
+  /* ── TAG ── */
+  .tag {
+    display: inline-block; background: var(--c-accent); color: white;
+    font-size: clamp(0.68rem,0.85vw,0.8rem); font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; border-radius: 100px; padding: 4px 12px;
+  }
   .tag.b { background: var(--c-blue); }
   .tag.g { background: var(--c-green); }
   .tag.o { background: var(--c-orange); }
   .tag.t { background: var(--c-teal); }
 
-  /* IMAGE PLACEHOLDER */
-  .ph { background: var(--c-bg); border: 2px dashed var(--c-light); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; cursor: pointer; transition: border-color var(--t), background var(--t); position: relative; overflow: hidden; }
+  /* ── IMAGE PLACEHOLDER ── */
+  .ph {
+    background: var(--c-bg); border: 2px dashed var(--c-light); border-radius: var(--radius);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; padding: 16px; cursor: pointer;
+    transition: border-color var(--t), background var(--t); position: relative; overflow: hidden;
+  }
   .ph:hover { border-color: var(--c-accent); background: #FFF2F0; }
-  .ph-icon  { font-size: 1.7rem; opacity: .36; }
-  .ph-lbl   { font-size: 11px; color: var(--c-mid); text-align: center; font-weight: 500; max-width: 22ch; line-height: 1.4; }
-  .ph-btn   { background: var(--c-accent); color: white; border: none; border-radius: 100px; padding: 5px 14px; font-size: 10px; font-weight: 600; cursor: pointer; font-family: var(--font-b); transition: opacity var(--t); }
+  .ph-icon  { font-size: 2rem; opacity: .32; }
+  .ph-lbl   { font-size: clamp(0.75rem,0.9vw,0.88rem); color: var(--c-mid); text-align: center; font-weight: 500; max-width: 22ch; line-height: 1.4; }
+  .ph-btn   { background: var(--c-accent); color: white; border: none; border-radius: 100px; padding: 5px 14px; font-size: clamp(0.7rem,0.85vw,0.8rem); font-weight: 600; cursor: pointer; font-family: var(--font-b); transition: opacity var(--t); }
   .ph-btn:hover { opacity: .84; }
   .ph input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
   .ph img.up { width: 100%; height: 100%; object-fit: cover; border-radius: calc(var(--radius)-2px); position: absolute; inset: 0; }
 
-  /* TWO-COL */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; }
+  /* ── TWO-COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
 
-  /* CONNECTOR */
-  .conn-row { display: flex; align-items: center; flex-wrap: wrap; }
-  .conn-box { background: var(--c-bg); border-radius: 8px; padding: 9px 16px; font-size: clamp(11px,1.1vw,13px); font-weight: 600; color: var(--c-ink); white-space: nowrap; }
-  .conn-arr { font-size: 18px; color: var(--c-light); padding: 0 8px; }
-
-  /* TABLE */
-  .mini-table { width: 100%; border-collapse: collapse; font-size: clamp(10px,1vw,12px); }
-  .mini-table th { background: var(--c-bg); color: var(--c-mid); font-weight: 600; text-align: left; padding: 7px 11px; font-size: 10px; text-transform: uppercase; letter-spacing: .07em; }
-  .mini-table td { padding: 8px 11px; border-bottom: 1px solid #ECEAE6; color: var(--c-mid); line-height: 1.4; }
+  /* ── TABLE ── */
+  .mini-table { width: 100%; border-collapse: collapse; }
+  .mini-table th { background: var(--c-bg); color: var(--c-mid); font-weight: 600; text-align: left; padding: 9px 13px; font-size: clamp(0.72rem,0.88vw,0.82rem); text-transform: uppercase; letter-spacing: .07em; }
+  .mini-table td { padding: 10px 13px; border-bottom: 1px solid #ECEAE6; color: var(--c-mid); line-height: 1.45; font-size: clamp(0.82rem,1vw,0.95rem); }
   .mini-table td strong { color: var(--c-ink); }
   .mini-table tr:last-child td { border-bottom: none; }
 
-  /* NAV */
-  #nav { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; background: var(--c-ink); border-radius: 100px; padding: 7px 14px; z-index: 999; box-shadow: 0 8px 32px rgba(0,0,0,.22); }
-  #nav button { background: none; border: none; color: var(--c-white); font-size: 17px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background var(--t); font-family: var(--font-b); }
+  /* ── NAV ── */
+  #nav {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 10px; background: var(--c-ink);
+    border-radius: 100px; padding: 7px 14px; z-index: 999;
+    box-shadow: 0 8px 32px rgba(0,0,0,.22);
+  }
+  #nav button {
+    background: none; border: none; color: var(--c-white); font-size: 17px;
+    width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; transition: background var(--t); font-family: var(--font-b);
+  }
   #nav button:hover { background: rgba(255,255,255,.12); }
   #nav button:disabled { opacity: .28; cursor: default; }
   #ctr { font-size: 11px; color: var(--c-light); min-width: 50px; text-align: center; font-weight: 500; letter-spacing: .06em; }
   #mod-ind { position: fixed; bottom: 24px; right: 20px; font-size: 10px; color: var(--c-mid); letter-spacing: .09em; text-transform: uppercase; font-weight: 600; }
 
-  /* MODAL */
+  /* ── MODAL ── */
   #modal { position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 24px; }
   #modal.open { display: flex; }
   #modal img { max-width: 92vw; max-height: 88vh; border-radius: var(--radius); object-fit: contain; }
   #modal-x { position: absolute; top: 14px; right: 18px; background: rgba(255,255,255,.15); border: none; color: white; font-size: 20px; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--t); }
   #modal-x:hover { background: rgba(255,255,255,.28); }
 
-  /* RESPONSIVE */
-  @media(max-width:640px){
-    .split { grid-template-columns: 1fr; }
+  /* ── RESPONSIVE ── */
+  @media(max-width:680px){
+    .split, .two-col { grid-template-columns: 1fr; }
     .split .ph { height: 130px !important; }
     .ph-icon { display: none; }
-    .cards { grid-template-columns: 1fr; }
-    .two-col { grid-template-columns: 1fr; }
+    .cards { grid-template-columns: 1fr 1fr; }
     #mod-ind { display: none; }
     #nav { bottom: 12px; }
   }
   @media(max-width:480px){
     .slide { padding: 16px 14px 74px; }
-    .split .ph { height: 90px !important; }
+    .cards { grid-template-columns: 1fr; }
   }
 
-  /* ANIMATIONS */
+  /* ── ANIMATIONS ── */
   .slide.active .inner > *, .slide.active .split > *, .slide.active .mcontent > * {
     animation: fup .42s ease both;
   }
@@ -186,17 +264,19 @@
   .slide.active .inner > *:nth-child(2), .slide.active .mcontent > *:nth-child(2) { animation-delay:.12s }
   .slide.active .inner > *:nth-child(3), .slide.active .mcontent > *:nth-child(3) { animation-delay:.19s }
   .slide.active .inner > *:nth-child(4) { animation-delay:.26s }
-  .slide.active .inner > *:nth-child(5) { animation-delay:.32s }
+  .slide.active .inner > *:nth-child(5) { animation-delay:.33s }
   .slide.active .split > *:nth-child(2) { animation-delay:.14s }
-  @keyframes fup { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fup { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 </style>
 </head>
 <body>
 
-<div id="progress-bar"></div>
+<div id="progress-track"><div id="progress-bar"></div></div>
 <div id="deck">
 
-<!-- ══ PORTADA ══ -->
+<!-- ══════════════════════════════════════
+     PORTADA
+════════════════════════════════════════ -->
 <section class="slide slide-cover active" data-module="Portada">
   <div class="eyebrow">dis+capacidad · Curso</div>
   <h1>Tecnología Asistiva<br>+ Equipar para Equipar</h1>
@@ -210,7 +290,9 @@
   </div>
 </section>
 
-<!-- ══ BLOQUE 1 ══ -->
+<!-- ══════════════════════════════════════
+     BLOQUE 1 — módulo
+════════════════════════════════════════ -->
 <section class="slide slide-module" style="background:var(--c-accent)" data-module="Bloque 1">
   <div class="mcontent">
     <div class="blq">Bloque 1</div>
@@ -220,501 +302,1012 @@
   <div class="m-num">1</div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 1">
-  <div class="inner">
-    <h3>¿Qué es la <span class="accent">tecnología asistiva</span>?</h3>
-    <p class="big">Cualquier producto, sistema o estrategia que <strong>aumenta, mantiene o mejora las capacidades funcionales</strong> de una persona con discapacidad.<br><br>No es una categoría de objetos — es una <strong>relación</strong> entre persona, necesidad y herramienta.</p>
-    <div class="pills">
-      <div class="pill"><div class="dot" style="background:var(--c-mid)"></div>Sin tecnología (no-tech)</div>
-      <div class="pill"><div class="dot" style="background:var(--c-teal)"></div>Baja tecnología (low-tech)</div>
-      <div class="pill"><div class="dot" style="background:var(--c-orange)"></div>Media tecnología (mid-tech)</div>
-      <div class="pill"><div class="dot" style="background:var(--c-accent)"></div>Alta tecnología (high-tech)</div>
-    </div>
-    <div class="hl">La TA más efectiva es la que <strong>realmente se usa</strong>. La sofisticación no es sinónimo de efectividad.</div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 1">
-  <div class="inner">
-    <h3>Marcos de <span class="accent">evaluación</span></h3>
-    <div class="cards">
-      <div class="card"><h4>HAAT</h4><p><strong>H</strong>umano · <strong>A</strong>ctividad · <strong>A</strong>T · <strong>C</strong>ontexto. La tecnología no se evalúa de forma aislada.</p></div>
-      <div class="card b"><h4>SETT</h4><p><strong>S</strong>tudent · <strong>E</strong>nvironments · <strong>T</strong>asks · <strong>T</strong>ools. Las herramientas se eligen al final, no al inicio.</p></div>
-      <div class="card o"><h4>Feature Matching</h4><p>Características indispensables primero. La herramienta correcta para <em>este</em> usuario en <em>este</em> momento.</p></div>
-      <div class="card g"><h4>mFREE</h4><p>5 fases · Partir de las capacidades, no de los déficits. Referencia iberoamericana.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 1">
-  <div class="inner">
-    <span class="tag">mFREE — Modelo iberoamericano</span>
-    <h3>5 fases del <span class="accent">proceso</span></h3>
-    <div class="steps">
-      <div class="step"><div class="s-num">1</div><div class="s-txt"><strong>Perfil personal:</strong> capacidades iniciales. Punto de partida — lo que la persona sí puede hacer.</div></div>
-      <div class="step"><div class="s-num">2</div><div class="s-txt"><strong>Propuesta de trabajo:</strong> plan desde las fortalezas del usuario, no desde los déficits.</div></div>
-      <div class="step"><div class="s-num">3</div><div class="s-txt"><strong>Correlación herramienta–competencia:</strong> feature matching. La herramienta responde a la propuesta, no al revés.</div></div>
-      <div class="step"><div class="s-num">4</div><div class="s-txt"><strong>Apoyos e implementación:</strong> mobiliario, tiempos, formación de cuidadores, rampas digitales.</div></div>
-      <div class="step"><div class="s-num">5</div><div class="s-txt"><strong>Evaluación y mejora:</strong> cierre del ciclo. ¿El dispositivo se usa? ¿En qué contextos? ¿Qué ajustar?</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 1">
-  <div class="inner">
-    <h3>El <span class="accent">equipo</span> interdisciplinario</h3>
-    <p class="big" style="max-width:46ch;">La persona con discapacidad es el centro — no un receptor pasivo de decisiones. La <strong>ausencia de habla no implica ausencia de opinión</strong>.</p>
-    <div class="cards">
-      <div class="card"><h4>TO / Kinesiólogo</h4><p>Posicionamiento, acceso motor, desempeño ocupacional.</p></div>
-      <div class="card b"><h4>Fonoaudiólogo</h4><p>Comunicación, CAA, prescripción y programación de sistemas.</p></div>
-      <div class="card o"><h4>Ingeniero biomédico</h4><p>Puente entre necesidad clínica y solución técnica. Fabrica cuando no existe en el mercado.</p></div>
-      <div class="card g"><h4>Familia / cuidadores</h4><p>Sostén del sistema fuera de la clínica. Sin carryover, la TA no se generaliza.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 1">
+<!-- ══════════════════════════════════════
+     SLIDE 1 — ¿Qué es la TA?
+     Mensaje: No es el dispositivo. Es la relación.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="¿Qué es la TA?">
   <div class="split">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <h3>Posicionamiento:<br>la <span class="accent">primera</span> intervención</h3>
-      <p class="big" style="max-width:30ch;">El tono, el rango motor y la fatiga cambian radicalmente con la postura.<br><br><strong>No se evalúa el movimiento sin controlar la postura.</strong></p>
-      <div class="hl"><strong>Regla práctica:</strong> observar cómo el usuario extiende el brazo hacia un objeto deseado. Esa distancia y ese ángulo son el punto de partida.</div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <h3>¿Qué es la<br><span class="accent">tecnología asistiva</span>?</h3>
+      <p class="big">Cualquier producto, sistema o estrategia que <strong>aumenta, mantiene o mejora las capacidades funcionales</strong> de una persona con discapacidad.</p>
+      <p class="big" style="font-size:clamp(0.95rem,1.5vw,1.3rem)">No es una categoría de objetos. Es una <strong>relación entre una persona, una necesidad y una herramienta</strong>. Un mismo dispositivo puede ser TA para alguien y no serlo para otra persona.</p>
     </div>
-    <div class="ph" style="height:290px" onclick="triggerUpload(this)">
-      <span class="ph-icon">🪑</span>
-      <span class="ph-lbl">Foto: usuario en posición correcta / brazo articulado / montaje clínico</span>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <h4>OMS</h4>
+        <p>El foco está en la función, no en el dispositivo. Lo que importa es lo que la herramienta <em>le permite hacer</em> a esa persona.</p>
+      </div>
+      <div class="card b">
+        <h4>RESNA</h4>
+        <p>La TA incluye los <strong>servicios</strong>: evaluación, entrenamiento y seguimiento. Un dispositivo sin entrenamiento es clínicamente inútil.</p>
+      </div>
+      <div class="hl">La ISO 9999 clasifica productos de apoyo por <strong>función</strong> (movilidad, comunicación, autocuidado…), no por tecnología.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 2 — El continuo + TA específica vs. uso general
+     Mensaje: Más tecnología ≠ mejor tecnología.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Continuo tecnológico">
+  <div class="inner">
+    <h3>Del <span class="accent">no-tech</span> al <span class="accent">high-tech</span></h3>
+    <div class="pills">
+      <div class="pill"><div class="dot" style="background:var(--c-mid)"></div>Sin tecnología</div>
+      <div class="pill"><div class="dot" style="background:var(--c-teal)"></div>Baja tecnología</div>
+      <div class="pill"><div class="dot" style="background:var(--c-orange)"></div>Media tecnología</div>
+      <div class="pill"><div class="dot" style="background:var(--c-accent)"></div>Alta tecnología</div>
+    </div>
+    <div class="two-col">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card">
+          <h4>TA específica</h4>
+          <p>Diseñada para personas con discapacidad: pulsadores, comunicadores, eye trackers, sillas adaptadas.</p>
+        </div>
+        <div class="card b">
+          <h4>Tecnología de uso general accesible</h4>
+          <p>iOS, Android, Windows y macOS incluyen control por voz, lectores de pantalla, switch access y eye tracking. Gratuitos, siempre disponibles y en constante mejora.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;justify-content:center">
+        <p class="big" style="max-width:38ch">La <strong>alta tecnología no es sinónimo de mejor tecnología</strong>. La más efectiva es la que realmente se usa.</p>
+        <div class="hl">El profesional de TA necesita conocer <strong>ambos mundos</strong>: la TA especializada y el ecosistema de accesibilidad del uso general.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 3 — El principio de no sobredimensionar
+     Mensaje: 1 de cada 3 dispositivos termina en el cajón.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="No sobredimensionar">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+      <div class="big-stat">30–40%</div>
+      <div class="big-stat-label">de los dispositivos se abandonan</div>
+      <p class="big" style="max-width:34ch;margin-top:8px">Cuando la selección no fue centrada en el usuario y su entorno real, la tecnología termina en el cajón. Un dispositivo que se abandona <strong>no es TA: es una oportunidad perdida</strong>.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span class="tag">Principio</span>
+        <p class="big" style="max-width:34ch;margin-top:4px">La solución más simple que funciona es <strong>siempre la mejor</strong>.</p>
+      </div>
+      <div class="card">
+        <h4>¿Por qué se sobredimensiona?</h4>
+        <p>Entusiasmo con la tecnología · presión de fabricantes · deseo legítimo de "dar lo mejor".</p>
+      </div>
+      <div class="card o">
+        <h4>La pregunta que debe guiar</h4>
+        <p>¿Puede el entorno del usuario <strong>sostener</strong> esta tecnología? ¿La familia puede operarla? ¿Se usa fuera de la clínica?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 4 — Metodología Equipar para Equipar
+     Mensaje: Diseñá herramientas que se adapten, no usuarios que conformen.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Equipar para Equipar">
+  <div class="inner">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span class="tag">Metodología</span>
+      <h3>Equipar para <span class="accent">Equipar</span></h3>
+    </div>
+    <p class="big">El mismo equipamiento que sirve para <strong>evaluar</strong> sirve para <strong>entrenar</strong>. No se toman decisiones definitivas antes de tener información suficiente.</p>
+    <div class="cards">
+      <div class="card">
+        <h4>Versatilidad</h4>
+        <p>Un dispositivo versátil cambia su modo de activación, tamaño o conectividad sin requerir un nuevo equipo para cada variante.</p>
+      </div>
+      <div class="card b">
+        <h4>Productos derivados</h4>
+        <p>El equipamiento base modular genera configuraciones que se extienden hacia nuevos objetivos o usuarios. Un núcleo tecnológico, múltiples soluciones.</p>
+      </div>
+      <div class="card o">
+        <h4>El ciclo iterar → ajustar</h4>
+        <p>Probar una configuración, observar la respuesta del usuario, ajustar y volver a probar. Ese ciclo <em>es</em> el proceso terapéutico.</p>
+      </div>
+      <div class="card g">
+        <h4>Ingeniería biomédica</h4>
+        <p>Puente entre necesidad clínica y solución técnica. El conocimiento que surge de la práctica clínica directa es cualitativamente diferente al del laboratorio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SEPARADOR — Marcos de evaluación
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-blue)" data-module="Marcos de evaluación">
+  <div class="mcontent">
+    <div class="blq">Bloque 1</div>
+    <h2>Marcos de evaluación y toma de decisiones</h2>
+    <p class="sub">HAAT · SETT · Feature matching · mFREE · Equipo interdisciplinario</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 6 — HAAT
+     Mensaje: La tecnología no existe en el vacío.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="HAAT">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="tag b">Cook &amp; Hussey</span>
+        <h3>Modelo <span class="blue">HAAT</span></h3>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">H</div><div class="s-txt"><strong>Humano:</strong> capacidades motoras, cognitivas, sensoriales. Preferencias, motivaciones, historia de vida.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">A</div><div class="s-txt"><strong>Actividad:</strong> lo que la persona quiere hacer. No el diagnóstico — la <em>ocupación</em>.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">AT</div><div class="s-txt"><strong>Tecnología asistiva:</strong> características, requisitos de operación, costo y mantenimiento.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">C</div><div class="s-txt"><strong>Contexto:</strong> entorno físico, social, cultural e institucional donde se usará la tecnología.</div></div>
+      </div>
+      <div class="hl blue">Un dispositivo excelente puede <strong>fallar</strong> si no considera adecuadamente el humano, la actividad y el contexto.</div>
+    </div>
+    <div id="ph-haat" class="ph" style="height:100%;min-height:280px" onclick="triggerUpload(this)">
+      <span class="ph-icon">🔲</span>
+      <span class="ph-lbl">Diagrama del modelo HAAT</span>
       <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
       <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
     </div>
   </div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 1">
+<!-- ══════════════════════════════════════
+     SLIDE 7 — SETT
+     Mensaje: Las herramientas vienen al final, no al principio.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="SETT">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="tag b">Joy Zabala</span>
+        <h3>Framework <span class="blue">SETT</span></h3>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">S</div><div class="s-txt"><strong>Student / Usuario:</strong> habilidades, necesidades y preferencias. ¿Qué puede hacer? ¿Qué le resulta difícil?</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">E</div><div class="s-txt"><strong>Environments / Entornos:</strong> dónde se usará la tecnología, qué recursos hay disponibles, qué barreras existen.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">T</div><div class="s-txt"><strong>Tasks / Tareas:</strong> actividades específicas que necesita realizar en ese entorno.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">T</div><div class="s-txt"><strong>Tools / Herramientas:</strong> recién aquí. ¿Qué tecnologías pueden ayudar a <em>este</em> usuario con <em>estas</em> tareas en <em>este</em> entorno?</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div id="ph-sett" class="ph" style="height:200px" onclick="triggerUpload(this)">
+        <span class="ph-icon">🔵</span>
+        <span class="ph-lbl">Diagrama del framework SETT</span>
+        <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+        <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+      </div>
+      <p class="big" style="max-width:36ch">Demasiado frecuentemente el proceso se invierte: <strong>se parte del dispositivo</strong> y se intenta adaptarlo al usuario.</p>
+      <div class="hl blue">La secuencia <strong>importa</strong>. Las herramientas se evalúan al final.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 8 — Feature matching
+     Mensaje: Primero lo no negociable.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Feature matching">
   <div class="inner">
-    <h3>Evaluar el <span class="accent">punto de acceso</span></h3>
-    <p class="big" style="max-width:48ch;">Identificar un <strong>movimiento voluntario, confiable y sostenible</strong> que pueda convertirse en señal de control.</p>
+    <h3>Feature <span class="blue">matching</span></h3>
+    <p class="big">El paso que convierte la evaluación en prescripción: comparar las <strong>necesidades y capacidades del usuario</strong> con las características técnicas de los dispositivos disponibles.</p>
+    <div class="two-col">
+      <div class="card b" style="padding:22px 24px">
+        <h4 style="font-size:clamp(1rem,1.3vw,1.2rem);margin-bottom:10px">Características indispensables</h4>
+        <p style="font-size:clamp(0.9rem,1.1vw,1.02rem)">Sin ellas el dispositivo no funciona para este usuario. Se definen <em>antes</em> de explorar opciones.<br><br>Ejemplo: si el usuario no tiene función manual, el sistema <strong>debe</strong> ser operable sin manos. No es negociable.</p>
+      </div>
+      <div class="card" style="padding:22px 24px">
+        <h4 style="font-size:clamp(1rem,1.3vw,1.2rem);margin-bottom:10px">Características deseables</h4>
+        <p style="font-size:clamp(0.9rem,1.1vw,1.02rem)">Mejoran la experiencia pero no son condición necesaria. Se consideran una vez garantizadas las indispensables.<br><br>Ejemplo: cámara integrada, conectividad Bluetooth adicional, etc.</p>
+      </div>
+    </div>
+    <div class="hl blue">Este proceso requiere conocer las opciones disponibles: tipos de pulsadores, métodos de acceso, software de CAA, configuraciones posibles. <strong>Ese conocimiento es el objetivo de este curso.</strong></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 9 — mFREE
+     Mensaje: Empezar por las capacidades. Terminar con la evaluación.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="mFREE">
+  <div class="inner">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span class="tag b">Modelo iberoamericano · Sánchez-Montoya &amp; Castellano</span>
+      <h3>Modelo <span class="blue">mFREE</span></h3>
+    </div>
+    <p class="big" style="max-width:56ch">Partir de <strong>capacidades</strong>, no de déficits. Cada fase construye sobre la anterior. El ciclo se repite a medida que el usuario avanza.</p>
+    <div class="steps">
+      <div class="step"><div class="s-num" style="background:var(--c-blue)">1</div><div class="s-txt"><strong>Perfil personal:</strong> lo que la persona puede hacer, no lo que no puede. Estilo de aprendizaje, puntos fuertes.</div></div>
+      <div class="step"><div class="s-num" style="background:var(--c-blue)">2</div><div class="s-txt"><strong>Propuesta de trabajo:</strong> plan desde las fortalezas. Si la capacidad lingüística está afectada, apoyarse en inteligencias espaciales, cinestésicas o musicales.</div></div>
+      <div class="step"><div class="s-num" style="background:var(--c-blue)">3</div><div class="s-txt"><strong>Correlación herramienta–competencia:</strong> feature matching. La herramienta responde a la propuesta — nunca al revés.</div></div>
+      <div class="step"><div class="s-num" style="background:var(--c-blue)">4</div><div class="s-txt"><strong>Apoyos e implementación:</strong> mobiliario, tiempos, formación de cuidadores, rampas digitales.</div></div>
+      <div class="step"><div class="s-num" style="background:var(--c-blue)">5</div><div class="s-txt"><strong>Evaluación y mejora:</strong> ¿El dispositivo se usa? ¿En qué contextos? ¿Qué requiere ajuste? El ciclo comienza de nuevo.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 10 — Equipo interdisciplinario
+     Mensaje: La persona es el centro. Siempre.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Equipo interdisciplinario">
+  <div class="inner">
+    <h3>El <span class="blue">equipo</span> interdisciplinario</h3>
+    <p class="big">La persona con discapacidad es el <strong>centro del equipo</strong>, no un receptor pasivo. <em>La ausencia de habla no implica ausencia de opinión.</em></p>
     <table class="mini-table">
-      <tr><th>Diagnóstico</th><th>Patrón frecuente</th><th>Consideración clave</th></tr>
-      <tr><td><strong>PC espástica</strong></td><td>Tono aumentado, movimiento reducido</td><td>Debounce generoso, posicionamiento crítico</td></tr>
-      <tr><td><strong>PC discinética</strong></td><td>Movimientos involuntarios continuos</td><td>Acceso por liberación, sitios con menor movimiento involuntario</td></tr>
-      <tr><td><strong>ELA temprana</strong></td><td>Debilidad distal progresiva</td><td>Planificar progresión → pulsador → eye tracking</td></tr>
-      <tr><td><strong>LM cervical alta</strong></td><td>Sin función en manos</td><td>Sip &amp; puff, joystick de mentón, control por cabeza o voz</td></tr>
+      <tr><th>Profesional</th><th>Contribución principal</th></tr>
+      <tr><td><strong>Terapeuta ocupacional</strong></td><td>Desempeño ocupacional, posicionamiento, acceso motor, entorno domiciliario y laboral</td></tr>
+      <tr><td><strong>Kinesiólogo / fisioterapeuta</strong></td><td>Postura, tono muscular, rango de movimiento, sistemas de posicionamiento</td></tr>
+      <tr><td><strong>Fonoaudiólogo / logopeda</strong></td><td>Comunicación, prescripción y programación de sistemas de CAA, deglución</td></tr>
+      <tr><td><strong>Médico fisiatra / neurólogo</strong></td><td>Diagnóstico, pronóstico, manejo farmacológico del tono</td></tr>
+      <tr><td><strong>Técnico / ingeniero en TA</strong></td><td>Hardware y software, fabricación de adaptaciones, integración de sistemas</td></tr>
+      <tr><td><strong>Familia / cuidadores</strong></td><td>Sostén del sistema fuera de la clínica, implementación y carryover</td></tr>
     </table>
   </div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 1">
-  <div class="inner">
-    <span class="tag">Metodología</span>
-    <h3>Equipar para <span class="accent">Equipar</span></h3>
-    <p class="big" style="max-width:50ch;">Diseñar y seleccionar herramientas <strong>configurables, adaptables y reutilizables</strong> en distintos momentos del proceso y con distintos usuarios.</p>
-    <div class="stats">
-      <div class="stat"><div class="n">30–40%</div><div class="l">Tasa de abandono sin evaluación centrada en el usuario</div></div>
-      <div class="stat"><div class="n">1</div><div class="l">Dispositivo → múltiples configuraciones</div></div>
-      <div class="stat"><div class="n">∞</div><div class="l">Iteraciones posibles cuando el equipo lo permite</div></div>
-    </div>
-    <div class="hl">El mismo equipamiento que sirve para <strong>evaluar</strong> puede servir para <strong>entrenar</strong>. No se toman decisiones definitivas antes de tener información suficiente.</div>
+<!-- ══════════════════════════════════════
+     SEPARADOR — Posicionamiento postural
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-teal)" data-module="Posicionamiento postural">
+  <div class="mcontent">
+    <div class="blq">Bloque 1</div>
+    <h2>Posicionamiento y soporte postural</h2>
+    <p class="sub">La base de cualquier evaluación de acceso a tecnología asistiva.</p>
   </div>
 </section>
 
-<!-- ══ BLOQUE 2 ══ -->
-<section class="slide slide-module" style="background:var(--c-blue)" data-module="Bloque 2">
+<!-- ══════════════════════════════════════
+     SLIDE 11 — El posicionamiento como parte de la TA
+     Mensaje: Postura primero. Evaluación después.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Posicionamiento: la primera intervención">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <h3>La <span class="teal">primera</span><br>intervención de TA</h3>
+      <p class="big">El posicionamiento determina el <strong>tono muscular</strong>, la disponibilidad de movimiento voluntario, la fatiga y la calidad del control motor distal.</p>
+      <div class="hl teal" style="font-size:clamp(0.95rem,1.3vw,1.15rem)"><strong>No se puede evaluar el movimiento sin controlar la postura.</strong></div>
+      <p class="big" style="font-size:clamp(0.9rem,1.3vw,1.1rem)">Una persona con PC espástica puede mostrar un movimiento perfectamente funcional cuando está bien posicionada — el mismo movimiento puede desaparecer con una postura inadecuada.</p>
+    </div>
+    <div id="ph-postural" class="ph" style="height:100%;min-height:280px" onclick="triggerUpload(this)">
+      <span class="ph-icon">🪑</span>
+      <span class="ph-lbl">Foto: antes y después del ajuste postural</span>
+      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 12 — Componentes en sentado
+     Mensaje: De proximal a distal. En ese orden.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Componentes en sentado">
+  <div class="inner">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <h3>Componentes del posicionamiento <span class="teal">sentado</span></h3>
+      <p class="big">Se evalúa y ajusta de <strong>proximal a distal</strong>: cada segmento es la base del siguiente.</p>
+    </div>
+    <div class="cards">
+      <div class="card t">
+        <h4>① Pelvis</h4>
+        <p>Punto de partida. Posición neutra. Cuñas, apoyos laterales y arneses antideslizantes. La profundidad del asiento es crítica.</p>
+      </div>
+      <div class="card t">
+        <h4>② Tronco</h4>
+        <p>Soporte mínimo necesario. El objetivo no es inmovilizar: es dar estabilidad para liberar los segmentos que necesitan moverse.</p>
+      </div>
+      <div class="card t">
+        <h4>③ Pies</h4>
+        <p>Apoyapiés en ángulo y altura correctos. Sin apoyo, la tensión de la cadena posterior sube hasta la pelvis y el tronco.</p>
+      </div>
+      <div class="card t">
+        <h4>④ Cabeza</h4>
+        <p>Fundamental para control por cabeza o trackeo ocular. Apoyacabezas con ajuste en múltiples ejes.</p>
+      </div>
+      <div class="card t">
+        <h4>⑤ Mesa escotada</h4>
+        <p>No solo superficie de trabajo: herramienta de posicionamiento. Reduce la carga en hombros y mejora el control motor distal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 13 — Otros entornos
+     Mensaje: La evaluación sigue al usuario, no a la silla.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Posicionamiento en otros entornos">
+  <div class="inner">
+    <h3>Posicionamiento en <span class="teal">otros entornos</span></h3>
+    <p class="big">La evaluación de acceso no se limita a la silla de ruedas. El usuario necesita acceso en <strong>todos los entornos</strong> donde realiza actividades.</p>
+    <div class="cards">
+      <div class="card t">
+        <h4>En cama</h4>
+        <p>Inclinación del respaldo, almohadas de posicionamiento, angulación del dispositivo. Muchos usuarios tienen mejor control en <strong>semifowler (30–45°)</strong> que a 90°.</p>
+      </div>
+      <div class="card t">
+        <h4>En silla convencional</h4>
+        <p>Almohadones de soporte lateral, cuñas de asiento portátiles y mesas escotadas desmontables pueden replicar el posicionamiento de la silla de ruedas.</p>
+      </div>
+      <div class="card t">
+        <h4>En el suelo</h4>
+        <p>Para niños pequeños: <strong>decúbito ventral con apoyo en codos</strong> puede ser óptimo para acceder a dispositivos colocados a su nivel.</p>
+      </div>
+    </div>
+    <div id="ph-semifowler" class="ph" style="height:90px" onclick="triggerUpload(this)">
+      <span class="ph-lbl">Foto: usuario en semifowler con dispositivo montado</span>
+      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 14 — Colaboración con kinesiología
+     Mensaje: Juntos, en el mismo momento.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Colaboración con kinesiología">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <h3>Trabajo <span class="teal">compartido</span></h3>
+      <p class="big" style="max-width:36ch">Trabajar en equipo — y en el <strong>mismo momento</strong>, no en sesiones separadas — produce resultados muy superiores a la evaluación individual.</p>
+      <div class="hl teal">La pregunta que une a ambos profesionales: ¿está esta postura <strong>optimizando el movimiento voluntario disponible</strong> del usuario?</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card t">
+        <h4>Kinesiólogo / fisioterapeuta</h4>
+        <p>Análisis biomecánico del tono, la espasticidad y el rango articular. Sistemas de posicionamiento en silla de ruedas.</p>
+      </div>
+      <div class="card t">
+        <h4>Terapeuta ocupacional</h4>
+        <p>Perspectiva del desempeño ocupacional y el acceso. ¿Qué debe poder hacer el usuario desde esa posición?</p>
+      </div>
+      <div id="ph-eval-equipo" class="ph" style="height:110px" onclick="triggerUpload(this)">
+        <span class="ph-lbl">Foto: evaluación conjunta TO + kinesiólogo</span>
+        <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+        <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SEPARADOR — Posicionamiento del dispositivo
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-orange)" data-module="Posicionamiento del dispositivo">
+  <div class="mcontent">
+    <div class="blq">Bloque 1</div>
+    <h2>Posicionamiento del dispositivo</h2>
+    <p class="sub">El dispositivo se mueve hacia la persona. Nunca al revés.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 15 — Variables fundamentales
+     Mensaje: 4 variables. Optimizarlas juntas es el objetivo.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Variables de posicionamiento">
+  <div class="inner">
+    <h3>Las <span class="orange">4 variables</span> de posicionamiento</h3>
+    <p class="big">El posicionamiento del dispositivo afecta la <strong>demanda motora</strong>, la <strong>carga postural</strong> y la <strong>calidad del acceso</strong>. Las tres simultáneamente.</p>
+    <div class="cards">
+      <div class="card o">
+        <h4>Distancia</h4>
+        <p>Adultos: 40–70 cm. Trackeo ocular: 50–70 cm exactos (especificados por el fabricante). En pediátricos: menor, compensado con tipografía más grande.</p>
+      </div>
+      <div class="card o">
+        <h4>Altura</h4>
+        <p>Cabeza en posición neutra o leve inclinación hacia abajo (10–20°). El centro de la pantalla a la altura de los ojos o levemente por debajo.</p>
+      </div>
+      <div class="card o">
+        <h4>Ángulo de inclinación</h4>
+        <p>10–20° hacia atrás. Trackeo ocular: pantalla más vertical. Acceso táctil: mayor tolerancia de ángulo.</p>
+      </div>
+      <div class="card o">
+        <h4>Lateralidad</h4>
+        <p>Centrado en el eje visual primario. En hemiparesia: leve desplazamiento hacia el lado funcional. Evitar asimetrías que aumenten el tono.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 16 — Sedestación y cama
+     Mensaje: Cada posición tiene su lógica de montaje.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Montaje: sedestación y cama">
+  <div class="inner">
+    <h3>Montaje en <span class="orange">sedestación</span> y en cama</h3>
+    <div class="two-col">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card o">
+          <h4>En silla de ruedas</h4>
+          <p>Sistema completo: <strong>abrazadera base + brazo articulado + plataforma con liberación rápida</strong>. La plataforma debe poder retirarse sin herramientas.</p>
+        </div>
+        <div class="card o">
+          <h4>Mesa escotada</h4>
+          <p>Agregar cuña de 20–30° para mejorar el ángulo de visión y reducir carga cervical.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card">
+          <h4>Semifowler (30–45°)</h4>
+          <p>Posición más funcional en cama. Brazo articulado fijo a barra lateral o mesa puente. Pantalla a 40–60 cm.</p>
+        </div>
+        <div class="card">
+          <h4>Decúbito dorsal</h4>
+          <p>Soportes articulados que posicionan el dispositivo sobre el torso. Pantalla perpendicular al suelo, directamente sobre los ojos.</p>
+        </div>
+        <div class="hl orange">Para <strong>eye tracking</strong>: ±10 cm en distancia o ±15° en ángulo degradan significativamente la calibración. Verificar antes de cada sesión.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 17 — Consideraciones pediátricas
+     Mensaje: En niños el dispositivo es también un estímulo.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Consideraciones pediátricas">
+  <div class="inner">
+    <h3>Consideraciones en <span class="orange">población pediátrica</span></h3>
+    <p class="big">El dispositivo no es solo herramienta funcional: es un <strong>estímulo visual y de aprendizaje</strong>. Su posición debe facilitar la interacción natural sin interrumpir el contacto visual con los cuidadores.</p>
+    <div class="cards">
+      <div class="card o">
+        <h4>Tamaño de pantalla</h4>
+        <p>Proporcional al niño y al desarrollo visual. Un iPad 12,9" puede ser demasiado grande para un niño de 3 años en cochecito.</p>
+      </div>
+      <div class="card o">
+        <h4>Posición respecto al cuidador</h4>
+        <p>Levemente hacia un lado — no directamente frente a la cara — para mantener contacto visual simultáneo con la pantalla.</p>
+      </div>
+      <div class="card o">
+        <h4>Alcance activo</h4>
+        <p>Observar cómo el niño extiende el brazo hacia un objeto que desea. <strong>Esa distancia y ese ángulo son el punto de partida.</strong></p>
+      </div>
+      <div class="card o">
+        <h4>Posición en el suelo</h4>
+        <p>Soporte inclinable de perfil bajo. Cuñas de posicionamiento con soporte integrado para tablet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 18 — Sistemas de montaje + documentación
+     Mensaje: Lo que no se documenta, se pierde.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Sistemas de montaje y documentación">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <h3>Sistemas de montaje y <span class="orange">documentación</span></h3>
+      <div class="steps">
+        <div class="step"><div class="s-num" style="background:var(--c-orange)">1</div><div class="s-txt"><strong>Abrazadera base:</strong> compatible con el tubo de la silla (22–28 mm). Palanca sin herramienta para ajuste frecuente.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-orange)">2</div><div class="s-txt"><strong>Brazo articulado:</strong> ajuste en 6 ejes, bloqueo firme. Un brazo que se afloja es clínicamente inaceptable.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-orange)">3</div><div class="s-txt"><strong>Plataforma:</strong> liberación rápida. Marco perimetral ajustable — más versátil que soportes específicos por modelo.</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="hl orange">
+        <strong>Documentar:</strong> tipo de soporte · distancia · altura · ángulo · lateralidad · condición de uso · <strong>fotografías desde dos ángulos.</strong>
+      </div>
+      <div class="card">
+        <h4>¿Por qué es crítico documentar?</h4>
+        <p>En entornos multidisciplinarios, cualquier profesional puede mover el dispositivo. En usuarios no verbales, nadie puede reportar que "el iPad está en el lugar equivocado".</p>
+      </div>
+      <div id="ph-montaje-silla" class="ph" style="height:90px" onclick="triggerUpload(this)">
+        <span class="ph-lbl">Foto: sistema de montaje completo en silla de ruedas</span>
+        <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+        <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 19 — Evaluación del movimiento funcional
+     Mensaje: El punto de acceso se evalúa, no se supone.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Evaluación del movimiento funcional">
+  <div class="inner">
+    <h3>Evaluación del <span class="accent">movimiento funcional</span></h3>
+    <p class="big">Identificar el <strong>mejor punto de acceso</strong>: la parte del cuerpo con la que el usuario puede controlar un dispositivo de manera confiable, eficiente y sostenible.</p>
+    <div class="two-col">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="pills" style="gap:8px">
+          <div class="pill"><div class="dot" style="background:var(--c-accent)"></div>Controlado</div>
+          <div class="pill"><div class="dot" style="background:var(--c-blue)"></div>Preciso</div>
+          <div class="pill"><div class="dot" style="background:var(--c-teal)"></div>Confiable</div>
+          <div class="pill"><div class="dot" style="background:var(--c-orange)"></div>Repetible</div>
+          <div class="pill"><div class="dot" style="background:var(--c-green)"></div>Eficiente</div>
+        </div>
+        <div class="hl">Se evitan movimientos reflejos (ej. RTAN), que aumenten el tono o que generen movimientos asociados indeseados en otras partes del cuerpo.</div>
+        <div class="card">
+          <h4>Exploración sistemática de sitios</h4>
+          <p>Mano D/I · muñeca · codo · hombro · cabeza (lateral, frontal) · pie · rodilla · boca. Un movimiento que parece ineficaz en la primera sesión puede mejorar con práctica.</p>
+        </div>
+      </div>
+      <div>
+        <table class="mini-table">
+          <tr><th>Diagnóstico</th><th>Consideración clave</th></tr>
+          <tr><td><strong>PC espástica</strong></td><td>Debounce generoso, posicionamiento crítico</td></tr>
+          <tr><td><strong>PC discinética</strong></td><td>Acceso por liberación, sitios con menor movimiento involuntario</td></tr>
+          <tr><td><strong>ELA temprana</strong></td><td>Planificar progresión → pulsador → eye tracking</td></tr>
+          <tr><td><strong>LM cervical alta</strong></td><td>Sip &amp; puff, mentón, cabeza, voz</td></tr>
+          <tr><td><strong>ACV hemiparesia</strong></td><td>Lado no afectado, mouse adaptado, mano no dominante</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     BLOQUE 2 — módulo
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-green)" data-module="Bloque 2">
   <div class="mcontent">
     <div class="blq">Bloque 2</div>
-    <h2>Acceso Directo</h2>
-    <p class="sub">El disMouse: características, configuración y lectura clínica de cada parámetro.</p>
+    <h2>Acceso Indirecto</h2>
+    <p class="sub">Pulsadores: tipos, características, criterios de selección y montaje.</p>
   </div>
   <div class="m-num">2</div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 2">
+<!-- ══════════════════════════════════════
+     SLIDE B2-1 — ¿Qué es un pulsador?
+     Mensaje: Un pulsador es cualquier sensor que detecta una intención.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="¿Qué es un pulsador?">
   <div class="split">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <h3>¿Qué es un <span class="green">pulsador</span>?</h3>
+      <p class="big">Una señal <strong>binaria</strong>: activado o no activado. Esta simplicidad es su fortaleza: permite que cualquier movimiento voluntario y confiable del cuerpo, por pequeño que sea, se convierta en una señal de control.</p>
+      <div class="hl green">El desafío clínico no es encontrar el pulsador correcto en un catálogo. Es identificar <strong>qué señal puede producir el usuario</strong> de forma voluntaria y confiable, y luego pensar qué sensor podría detectarla.</div>
+    </div>
     <div style="display:flex;flex-direction:column;gap:14px">
-      <span class="tag b">dis+capacidad</span>
-      <h3>El <span class="blue">disMouse</span></h3>
-      <div class="steps">
-        <div class="step"><div class="s-num" style="background:var(--c-blue)">9</div><div class="s-txt"><strong>Botones:</strong> Rojo · Azul · Naranja · Celeste · 4 flechas · Shift</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-blue)">🔌</div><div class="s-txt">Conectores externos para <strong>pulsadores plug</strong> en cada botón</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-blue)">📶</div><div class="s-txt">Bluetooth · Windows · iOS · Android · macOS</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-blue)">✦</div><div class="s-txt">Feedback <strong>lumínico, sonoro y vibratorio</strong> por botón</div></div>
+      <div class="card g">
+        <h4>No es un objeto con una forma fija</h4>
+        <p>Un pulsador puede responder a presión, soplo, succión, sonido, proximidad o contracción muscular (EMG). Cualquier fenómeno físico que el usuario pueda generar de forma voluntaria.</p>
+      </div>
+      <div class="card g">
+        <h4>El disMouse como interfaz universal</h4>
+        <p>Al aceptar señales a través de sus conectores externos, funciona como puente entre cualquier sensor y el sistema operativo. Un sensor a medida + una interfaz configurable.</p>
+      </div>
+      <div id="ph-pulsadores" class="ph" style="height:100px" onclick="triggerUpload(this)">
+        <span class="ph-lbl">Foto: distintos tipos de pulsadores</span>
+        <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+        <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
       </div>
     </div>
-    <div class="ph" style="height:290px" onclick="triggerUpload(this)">
-      <span class="ph-icon">🖱️</span>
-      <span class="ph-lbl">Foto: vista frontal del disMouse con botones identificados</span>
-      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
-      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
-    </div>
   </div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 2">
+<!-- ══════════════════════════════════════
+     SLIDE B2-2 — Tipos de pulsadores
+     Mensaje: Tres familias, cada una con su lógica clínica.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Tipos de pulsadores">
   <div class="inner">
-    <h3>Diseño físico y <span class="blue">lectura clínica</span></h3>
+    <h3>Tipos de pulsadores por <span class="green">interfaz de conexión</span></h3>
     <div class="cards">
-      <div class="card b"><h4>Botones amplios y bajo relieve</h4><p>Reduce la demanda de precisión motora fina. Ventaja para usuarios con temblor o control motor grueso.</p></div>
-      <div class="card b"><h4>Conectores para pulsadores externos</h4><p>La topografía de acceso puede cambiar sin cambiar la configuración lógica del dispositivo.</p></div>
-      <div class="card b"><h4>Cubierta tipo sobreteclado</h4><p>Separa visualmente los botones. Útil para usuarios con dificultad de discriminación visuo-motora.</p></div>
-      <div class="card b"><h4>Ventosas en la base</h4><p>Fija el dispositivo a cualquier superficie plana. Elimina el error de posicionamiento en usuarios con movimiento involuntario.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 2">
-  <div class="inner">
-    <h3>Parámetros de <span class="blue">configuración</span> clínica</h3>
-    <div class="cards">
-      <div class="card"><h4>Modo de activación</h4><p><strong>Al presionar</strong> · <strong>Al soltar</strong> (útil si liberar es más controlado) · <strong>Bloqueable</strong> — arrastre sin dos acciones simultáneas.</p></div>
-      <div class="card b"><h4>Debounce</h4><p>Filtra activaciones por temblor. Se configura <em>por botón</em>. Indicador indirecto del control temporal del movimiento.</p></div>
-      <div class="card o"><h4>Velocidad del cursor</h4><p>Ajuste combinado: configurador dis+ (aceleración) + SO (velocidad máxima). Más fino que cualquiera por separado.</p></div>
-      <div class="card g"><h4>Orientación</h4><p>4 posiciones (0°·90°·180°·270°) para ubicar el dispositivo donde el usuario lo necesita.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 2">
-  <div class="split">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <span class="tag b">Configurador web</span>
-      <h3>Configuración<br>sin <span class="blue">instalación</span></h3>
-      <p class="big" style="max-width:28ch;">Desde el navegador. Bluetooth. Cada parámetro se guarda directamente en el dispositivo.</p>
-      <div class="conn-row">
-        <div class="conn-box">Navegador</div>
-        <div class="conn-arr">→</div>
-        <div class="conn-box">Web Bluetooth</div>
-        <div class="conn-arr">→</div>
-        <div class="conn-box">disMouse</div>
+      <div class="card g">
+        <h4>Plug (analógicos) — jack 3,5 mm</h4>
+        <p>Cierran un circuito al activarse. Intercambiables entre marcas y modelos. Requieren un intermediario (disMouse, interfaz) para conectarse a sistemas digitales.<br><br>
+        <strong>Normal abierto (NO):</strong> acción al presionar.<br>
+        <strong>Normal cerrado (NC):</strong> acción al soltar — útil cuando liberar es el movimiento más controlado.</p>
       </div>
-      <div class="hl blue">Los <strong>presets</strong> (Causa-Efecto, CAA, Juego, Oficina) permiten arrancar con una configuración coherente en un clic.</div>
-    </div>
-    <div class="ph" style="height:270px" onclick="triggerUpload(this)">
-      <span class="ph-icon">💻</span>
-      <span class="ph-lbl">Captura: interfaz del configurador web dis+capacidad</span>
-      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
-      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 2">
-  <div class="inner">
-    <h3>Del <span class="blue">mouse</span> al pulsador</h3>
-    <p class="big" style="max-width:52ch;">Desactivando las flechas y configurando solo los botones, el disMouse se convierte en un <strong>pulsador USB multifunción</strong>. El hardware no cambia.</p>
-    <div class="hl blue"><strong>Mariana, ELA progresiva:</strong> comenzó con mouse adaptado → aumentó debounce a medida que avanzó → conectó pulsador de cabeza y desactivó botones. El sistema de CAA, la configuración y el dispositivo: los mismos. Solo cambió el <strong>punto de acceso físico</strong>.</div>
-    <div class="cards">
-      <div class="card b"><h4>Complejidad incremental</h4><p>Comenzar con 1 botón. Agregar funciones de a una. Identificar el umbral de carga cognitiva.</p></div>
-      <div class="card b"><h4>Condiciones progresivas</h4><p>La configuración puede mantenerse estable mientras el punto de entrada físico se redirige a la parte del cuerpo con mejor control.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 2">
-  <div class="inner">
-    <h3>Modos de <span class="blue">barrido</span> integrados</h3>
-    <div class="cards">
-      <div class="card"><h4>🔴 Barrido Dirigido · Shift+Rojo</h4><p>2 pulsadores. Usuario controla el ritmo. Tolera fatiga y procesamiento lento. Sin presión temporal.</p></div>
-      <div class="card o"><h4>🟠 Barrido Automático · Shift+Naranja</h4><p>1 pulsador. El dispositivo avanza cada 1,5 s. Puerta de entrada para control motor muy reducido.</p></div>
-      <div class="card b"><h4>🔵 Modo Snake · Shift+Azul</h4><p>1 botón mueve el cursor en todas las direcciones rotando secuencialmente. Clic desde los otros botones sin salir del modo.</p></div>
-      <div class="card t"><h4>🩵 Modo Juego · Shift+Celeste</h4><p>Entrenamiento de causa-efecto y control motor mediante actividad lúdica.</p></div>
-    </div>
-    <div class="hl blue">Funcionan desde el <strong>firmware del dispositivo</strong>. Sin software instalado. Ideal para móviles iOS y Android.</div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 2">
-  <div class="split">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <span class="tag b">Accesorios</span>
-      <h3>El disMouse en <span class="blue">contexto clínico</span></h3>
-      <div class="steps">
-        <div class="step"><div class="s-num" style="background:var(--c-blue)">1</div><div class="s-txt">Evaluar posicionamiento antes de elegir el accesorio</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-blue)">2</div><div class="s-txt">Comenzar sin accesorios para observar el desempeño basal</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-blue)">3</div><div class="s-txt">Agregar cubierta, ventosas o pulsadores externos de forma aislada</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-blue)">4</div><div class="s-txt">Cuantificar el efecto de cada accesorio — es información clínica</div></div>
+      <div class="card g">
+        <h4>USB</h4>
+        <p>Se presenta como dispositivo HID (mouse). El sistema operativo lo reconoce automáticamente, sin configuración adicional.<br><br>
+        En tablets: simula un toque en el centro de la pantalla. Los modelos dis+capacidad incluyen entrada jack 3,5 mm para un segundo botón independiente — clic derecho con pulsador plug.</p>
       </div>
-      <div class="hl blue">Si la cubierta mejora la precisión, eso habla del <strong>perfil perceptivo-motor</strong> del usuario.</div>
-    </div>
-    <div class="ph" style="height:280px" onclick="triggerUpload(this)">
-      <span class="ph-icon">🔧</span>
-      <span class="ph-lbl">Foto: disMouse con cubierta / ventosas / pulsadores externos conectados</span>
-      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
-      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
-    </div>
-  </div>
-</section>
-
-<!-- ══ BLOQUE 3 ══ -->
-<section class="slide slide-module" style="background:var(--c-orange)" data-module="Bloque 3">
-  <div class="mcontent">
-    <div class="blq">Bloque 3</div>
-    <h2>Acceso Indirecto</h2>
-    <p class="sub">Pulsadores, escaneo y herramientas nativas de iOS, Android, Windows y macOS.</p>
-  </div>
-  <div class="m-num">3</div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 3">
-  <div class="inner">
-    <h3>Un pulsador es <span class="orange">un sensor</span></h3>
-    <p class="big" style="max-width:50ch;">Genera una señal binaria: <strong>activado / no activado</strong>. Cualquier movimiento voluntario y confiable del cuerpo puede convertirse en señal de control.</p>
-    <div class="pills">
-      <div class="pill"><div class="dot" style="background:var(--c-mid)"></div>Presión</div>
-      <div class="pill"><div class="dot" style="background:var(--c-blue)"></div>Soplido / succión</div>
-      <div class="pill"><div class="dot" style="background:var(--c-teal)"></div>Proximidad</div>
-      <div class="pill"><div class="dot" style="background:var(--c-orange)"></div>Contracción muscular (EMG)</div>
-      <div class="pill"><div class="dot" style="background:var(--c-green)"></div>Sonido</div>
-      <div class="pill"><div class="dot" style="background:var(--c-accent)"></div>Cualquier fenómeno físico voluntario</div>
-    </div>
-    <div class="hl orange">El desafío clínico no es encontrar el pulsador en un catálogo: es identificar <strong>qué señal puede producir el usuario</strong> y qué sensor podría detectarla.</div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 3">
-  <div class="inner">
-    <h3>Tipos por <span class="orange">interfaz de conexión</span></h3>
-    <div class="cards">
-      <div class="card o"><h4>Plug (analógico)</h4><p>Jack 3,5 mm. Cierra circuito eléctrico. Requiere intermediario. <strong>Intercambiables entre marcas.</strong></p></div>
-      <div class="card o"><h4>Normal Cerrado (NC)</h4><p>Circuito activo en reposo. La acción ocurre <strong>al soltar</strong>. Útil para perfiles motores específicos.</p></div>
-      <div class="card o"><h4>USB (digital)</h4><p>El SO lo reconoce como mouse. <strong>Plug-and-play.</strong> Sin configuración adicional.</p></div>
-      <div class="card o"><h4>Bluetooth (disButton)</h4><p>Configurable desde el navegador. Emula cualquier tecla o acción de mouse. <strong>Debounce ajustable.</strong></p></div>
-    </div>
-    <div class="hl orange">Los modelos dis+capacidad (USB) incluyen conector jack adicional: <strong>clic derecho con pulsador plug</strong> sin ocupar un segundo puerto USB.</div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 3">
-  <div class="inner">
-    <h3>Escaneo en <span class="orange">dispositivos móviles</span></h3>
-    <div class="cards">
-      <div class="card o"><h4>iOS — Switch Control</h4><p>Escaneo automático o paso a paso. Grupos por fila/columna. Compatible con disMouse y disButton.</p></div>
-      <div class="card o"><h4>Android — Switch Access</h4><p>Mismo principio. Cursor directo con disMouse sin configuración extra. Ventaja en costo de hardware.</p></div>
-      <div class="card"><h4>1 pulsador</h4><p>Escaneo automático. El sistema avanza; el usuario selecciona cuando llega al elemento deseado.</p></div>
-      <div class="card"><h4>2 pulsadores</h4><p>Escaneo paso a paso. El usuario controla el avance Y la selección. Mayor velocidad y autonomía.</p></div>
-    </div>
-    <div class="hl orange"><strong>Primero configurar el atajo de accesibilidad</strong> (triple clic en iOS, botón flotante en Android) antes de activar el escaneo.</div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 3">
-  <div class="split">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <span class="tag o">disMouse + móviles</span>
-      <h3>Cursor + <span class="orange">Dwell Control</span></h3>
-      <p class="big" style="max-width:30ch;">Para usuarios que mueven el cursor pero <strong>no tienen un segundo punto de acceso</strong> confiable para el clic.</p>
-      <div class="steps">
-        <div class="step"><div class="s-num" style="background:var(--c-orange)">1</div><div class="s-txt">Conectar disMouse por Bluetooth</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-orange)">2</div><div class="s-txt">Activar AssistiveTouch + Dwell Control (~1,5 s)</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-orange)">3</div><div class="s-txt">Flechas en Modo 0 (cursor) en el configurador</div></div>
-        <div class="step"><div class="s-num" style="background:var(--c-orange)">4</div><div class="s-txt">El usuario posiciona → el sistema hace el clic solo</div></div>
+      <div class="card g">
+        <h4>Bluetooth configurable — disButton</h4>
+        <p>Configuración completa desde el navegador (Configurador dis+). Puede emular cualquier tecla, combinación o acción de mouse.<br><br>
+        <strong>Modos de activación:</strong> al presionar · al soltar · tras pulsación sostenida.<br>
+        <strong>Debounce ajustable:</strong> filtra activaciones accidentales por temblor o espasticidad.</p>
       </div>
     </div>
-    <div class="ph" style="height:290px" onclick="triggerUpload(this)">
-      <span class="ph-icon">📱</span>
-      <span class="ph-lbl">Foto: disMouse conectado a tablet / configuración AssistiveTouch</span>
-      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
-      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
-    </div>
+    <div class="hl green">A mayor sofisticación de la interfaz, <strong>mayor control sobre el comportamiento</strong> del pulsador y mayor capacidad de adaptarlo a perfiles motores complejos.</div>
   </div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 3">
+<!-- ══════════════════════════════════════
+     SLIDE B2-3 — Clasificación por mecanismo
+     Mensaje: Un pulsador puede detectar cualquier señal que el cuerpo pueda generar.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Clasificación por mecanismo de activación">
   <div class="inner">
-    <h3>Acceso indirecto en <span class="orange">escritorio</span></h3>
-    <div class="cards">
-      <div class="card"><h4>Win — Eye Control</h4><p>Control ocular nativo (Tobii, EyeTech). Cursor, clic, teclado en pantalla, texto a voz.</p></div>
-      <div class="card o"><h4>Win — Voice Access</h4><p>Comandos de voz para apps, texto y navegación. Windows 11. Sin hardware adicional.</p></div>
-      <div class="card g"><h4>macOS — Switch Control</h4><p>Barrido nativo. Head tracking con cámara frontal sin hardware extra. Dwell integrado.</p></div>
-      <div class="card b"><h4>macOS — Voice Control</h4><p>Superposición de números/cuadrícula para interactuar con cualquier elemento en pantalla.</p></div>
-    </div>
-    <div class="hl orange"><strong>Control por voz:</strong> requiere habla inteligible. En disartria la precisión puede ser insuficiente — evaluar la inteligibilidad antes de proponer esta solución.</div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 3">
-  <div class="inner">
-    <h3>Head mouse y <span class="orange">eye tracking</span></h3>
+    <h3>Clasificación por <span class="green">mecanismo de activación</span></h3>
     <div class="two-col">
-      <div style="display:flex;flex-direction:column;gap:11px">
-        <div class="card o"><h4>Head mouse</h4><p>Rastrea un punto en el rostro con cámara. Se presenta como mouse HID estándar — sin drivers. Clic por dwell o pulsador externo.</p></div>
-        <div class="hl orange" style="font-size:10px"><strong>Tracky Mouse</strong> — gratuito, integrable en apps web. El ingeniero biomédico convierte esa posibilidad en una herramienta clínica concreta.</div>
-        <div class="card g"><h4>Indicación</h4><p>Buen control cefálico, sin función manual. Costo y complejidad menores que eye tracking.</p></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card g">
+          <h4>Pulsadores de presión</h4>
+          <p>Los más habituales. Varían en:<br><br>
+          <strong>Tamaño:</strong> a mayor tamaño, menor demanda de precisión motora.<br>
+          <strong>Fuerza de activación:</strong> desde &lt;50 g (Microlight) hasta presión moderada o alta. Se ajusta al perfil de fuerza del usuario.<br>
+          <strong>Recorrido:</strong> mayor recorrido = más retroalimentación táctil; menor recorrido = mejor para rango de movimiento reducido.</p>
+        </div>
+        <div class="hl green">La elección del tipo de pulsador no depende de una categoría diagnóstica: depende de <strong>qué señal puede producir ese usuario específico</strong> en ese contexto.</div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:11px">
-        <div class="card b"><h4>Eye tracking</h4><p>Barra con cámaras IR bajo el monitor. Alta precisión. Selección por dwell o parpadeo. Sensible a iluminación y calibración.</p></div>
-        <div class="card"><h4>Indicación</h4><p>ELA avanzada · LM cervical alta · PC con buen control ocular. El acceso más independiente cuando no hay otro punto confiable.</p></div>
-        <div class="ph" style="height:90px" onclick="triggerUpload(this)">
-          <span class="ph-lbl">Foto: dispositivo de eye tracking en uso</span>
-          <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
-          <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p class="big" style="max-width:34ch">Los pulsadores son, en esencia, <strong>sensores</strong>: detectan una señal y la convierten en una activación.</p>
+        <div class="cards" style="grid-template-columns:1fr 1fr">
+          <div class="card g"><h4>Soplo / succión</h4><p>Sip &amp; puff. Indicado en LM cervical alta.</p></div>
+          <div class="card g"><h4>Sonido</h4><p>Sensores de voz o ruido ambiental.</p></div>
+          <div class="card g"><h4>Proximidad</h4><p>Sin contacto físico necesario.</p></div>
+          <div class="card g"><h4>EMG</h4><p>Contracción muscular detectada electrónicamente.</p></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 3">
-  <div class="split rev">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <span class="tag o">Ejemplo clínico</span>
-      <h3>Un pulsador.<br>Un <span class="orange">movimiento</span> voluntario.</h3>
-      <p class="big" style="max-width:32ch;">La elección no depende del diagnóstico — depende de <strong>qué señal puede producir ese usuario específico</strong> en ese contexto.</p>
-      <div class="hl orange">La evaluación <strong>no termina en el pulsador</strong>: termina cuando el usuario puede hacer con su tecnología lo que necesita hacer.</div>
-    </div>
-    <div class="ph" style="height:290px" onclick="triggerUpload(this)">
-      <span class="ph-icon">🖐️</span>
-      <span class="ph-lbl">Foto: usuario con pulsador externo / montaje clínico real</span>
-      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
-      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
-    </div>
-  </div>
-</section>
-
-<!-- ══ BLOQUE 4 ══ -->
-<section class="slide slide-module" style="background:var(--c-green)" data-module="Bloque 4">
-  <div class="mcontent">
-    <div class="blq">Bloque 4</div>
-    <h2>Comunicación Alternativa y Aumentativa</h2>
-    <p class="sub">disCom, tableros de baja tecnología, mitos y AsTeRICS Grid.</p>
-  </div>
-  <div class="m-num">4</div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 4">
+<!-- ══════════════════════════════════════
+     SLIDE B2-4 — Criterios de selección
+     Mensaje: Nunca seleccionar sin probar en condiciones reales.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Criterios de selección del pulsador">
   <div class="inner">
-    <h3>¿Qué es la <span class="green">CAA</span>? Mitos</h3>
-    <p class="big" style="max-width:50ch;">El conjunto de estrategias, técnicas y herramientas que <strong>complementan o reemplazan el habla</strong> cuando esta es insuficiente.</p>
-    <div class="cards">
-      <div class="card g"><h4>❌ "La CAA inhibe el habla"</h4><p>La evidencia muestra lo contrario: la CAA <strong>apoya y facilita</strong> el desarrollo del habla. El único riesgo es no comunicarse.</p></div>
-      <div class="card g"><h4>❌ "Hay que esperar cierta edad"</h4><p>No existe umbral mínimo. La comunicación es un <strong>derecho desde el nacimiento</strong>. La intervención temprana mejora los resultados.</p></div>
-      <div class="card g"><h4>❌ "Solo para personas que no hablan"</h4><p>El habla insuficiente para todas las necesidades ya justifica la CAA. <strong>Comunicación multimodal</strong> es la norma.</p></div>
-      <div class="card g"><h4>❌ "Demasiado complejo para muchos"</h4><p>La complejidad del sistema se ajusta al perfil. Siempre hay un nivel de CAA <strong>apropiado para cada persona</strong>.</p></div>
-    </div>
+    <h3>Criterios de <span class="green">selección</span></h3>
+    <p class="big">Nunca seleccionar un pulsador sin probarlo en las <strong>condiciones reales de uso</strong>. Un pulsador ideal en la evaluación puede fallar por la posición al comer, la fatiga del final del día o los cambios de tono según el estado emocional.</p>
+    <table class="mini-table">
+      <tr><th>Factor</th><th>Preguntas clave</th></tr>
+      <tr><td><strong>Control motor</strong></td><td>¿Cuánta fuerza puede aplicar? ¿El movimiento es preciso o amplio? ¿Hay movimientos involuntarios que podrían activar accidentalmente?</td></tr>
+      <tr><td><strong>Fatiga</strong></td><td>¿Durante cuánto tiempo puede mantener el uso? ¿Qué tipo de activación (presión vs. soplo) fatiga menos?</td></tr>
+      <tr><td><strong>Cognición</strong></td><td>¿Requiere retroalimentación táctil clara para confirmar la activación? ¿Puede distinguir diferentes tipos (sip vs. puff)?</td></tr>
+      <tr><td><strong>Entorno</strong></td><td>¿El ruido del pulsador es un problema en ese contexto? ¿Es socialmente aceptable?</td></tr>
+      <tr><td><strong>Posicionamiento</strong></td><td>¿En qué parte del cuerpo se ubicará? ¿El montaje requerido es viable en todos los entornos de uso?</td></tr>
+    </table>
   </div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 4">
-  <div class="inner">
-    <h3>Multimodalidad y <span class="green">ciclo de vida</span></h3>
-    <p class="big" style="max-width:50ch;">El objetivo no es que el usuario use <em>solo</em> el dispositivo — es que tenga acceso a la comunicación mediante <strong>todos los medios disponibles</strong>.</p>
-    <div class="steps">
-      <div class="step"><div class="s-num" style="background:var(--c-green)">👶</div><div class="s-txt"><strong>Primera infancia:</strong> baja tecnología para expresar preferencias e iniciar interacciones.</div></div>
-      <div class="step"><div class="s-num" style="background:var(--c-green)">📚</div><div class="s-txt"><strong>Edad escolar:</strong> CAA integrada al currículo, vocabulario académico, alfabetización asistida.</div></div>
-      <div class="step"><div class="s-num" style="background:var(--c-green)">💼</div><div class="s-txt"><strong>Adultez:</strong> mundo laboral, relaciones sociales, autonomía en la comunidad.</div></div>
-      <div class="step"><div class="s-num" style="background:var(--c-green)">🔬</div><div class="s-txt"><strong>Condiciones adquiridas:</strong> ACV con afasia, ELA, demencia. CAA multimodal ajustada a cada condición.</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 4">
-  <div class="inner">
-    <h3>El espectro de la <span class="green">CAA</span></h3>
-    <div class="cards">
-      <div class="card"><h4>Sin ayuda</h4><p>Gestos, mirada, expresión facial. Siempre disponible, siempre presente.</p></div>
-      <div class="card b"><h4>Baja tecnología</h4><p>Tableros en papel. PODD. Libros de comunicación. Vocabulario <strong>core + fringe</strong>. Sistema de respaldo imprescindible.</p></div>
-      <div class="card o"><h4>Media tecnología</h4><p>VOCA con voz grabada. <strong>disCom:</strong> mensaje único · secuencial · tablero 3 botones.</p></div>
-      <div class="card g"><h4>Alta tecnología</h4><p>Síntesis de voz, pantalla dinámica, cualquier método de acceso. <strong>AsTeRICS Grid.</strong></p></div>
-    </div>
-    <div class="hl green">La baja tecnología no se descargan, no se rompen, no requieren conectividad. Siempre debe existir un <strong>sistema de baja tecnología de respaldo</strong>.</div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 4">
-  <div class="inner">
-    <h3>Vocabulario <span class="green">core</span> y fringe · PODD</h3>
-    <div class="two-col">
-      <div style="display:flex;flex-direction:column;gap:11px">
-        <div class="card g"><h4>Vocabulario core</h4><p>Palabras de alta frecuencia y uso general: <em>quiero, más, no, ayuda, ir</em>. 200–400 palabras cubren el 80% de la comunicación.</p></div>
-        <div class="card g"><h4>Vocabulario fringe</h4><p>Específico al usuario y al contexto: nombres, lugares, actividades favoritas. Complementa al core.</p></div>
-        <div class="hl green" style="font-size:10px">Elementos más frecuentes en las posiciones más <strong>accesibles</strong> (centro o esquina superior izquierda).</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:11px">
-        <div class="card b"><h4>PODD</h4><p>Pragmatic Organisation Dynamic Display. Organización por <strong>funciones comunicativas</strong>: pedir · comentar · preguntar · responder · protestar.</p></div>
-        <div class="card b"><h4>Adaptaciones PODD</h4><p>Versiones para señalización directa, escaneo, partner-assisted scanning y señalización ocular. Valioso en acceso complejo.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 4">
+<!-- ══════════════════════════════════════
+     SLIDE B2-5 — Principios y sistemas de montaje
+     Mensaje: El pulsador se mueve hacia el usuario. Nunca al revés.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Montaje: principios y sistemas">
   <div class="split">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <span class="tag g">dis+capacidad</span>
-      <h3>disCom:<br>VOCA que <span class="green">acompaña</span> el proceso</h3>
-      <div class="stats">
-        <div class="stat"><div class="n" style="color:var(--c-green)">9</div><div class="l">Mensajes en Modo Niveles (3 niveles × 3 botones)</div></div>
-        <div class="stat"><div class="n" style="color:var(--c-green)">90"</div><div class="l">Grabación en Modo Secuencial</div></div>
-      </div>
-      <div class="pills">
-        <div class="pill"><div class="dot" style="background:var(--c-green)"></div>Modo Niveles → tablero de voz</div>
-        <div class="pill"><div class="dot" style="background:var(--c-blue)"></div>Modo Secuencial → narrador de pasos</div>
-        <div class="pill"><div class="dot" style="background:var(--c-orange)"></div>Entrada plug para pulsadores externos</div>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <h3>Montaje y <span class="green">posicionamiento</span></h3>
+      <p class="big" style="max-width:34ch">Un pulsador perfectamente seleccionado pero <strong>mal posicionado, falla</strong>. El montaje determina en gran medida el éxito del acceso.</p>
+      <div class="steps">
+        <div class="step"><div class="s-num" style="background:var(--c-green)">→</div><div class="s-txt">El pulsador debe estar donde el movimiento llega de forma <strong>natural, sin compensaciones posturales</strong>.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-green)">→</div><div class="s-txt">El <strong>pulsador se mueve hacia el usuario</strong>. El usuario no se esfuerza por alcanzar el pulsador.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-green)">→</div><div class="s-txt">El montaje debe ser <strong>ajustable</strong>: crecimiento, cambios de tono y fatiga modifican el punto de acceso.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-green)">→</div><div class="s-txt">El montaje debe ser <strong>seguro</strong>: que no se desplace inadvertidamente durante el uso.</div></div>
       </div>
     </div>
-    <div class="ph" style="height:290px" onclick="triggerUpload(this)">
-      <span class="ph-icon">🔊</span>
-      <span class="ph-lbl">Foto: disCom en uso clínico / contexto de sesión terapéutica</span>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <p class="big" style="font-size:clamp(0.9rem,1.2vw,1.1rem)">Componentes de un sistema de montaje en silla de ruedas:</p>
+      <div class="card g"><h4>Abrazadera base</h4><p>Se fija a la barra de la silla con tornillos o palanca sin herramienta.</p></div>
+      <div class="card g"><h4>Brazo articulado</h4><p>Ajusta posición en múltiples dimensiones: altura, distancia, ángulo. RAM Mount y Loc-Line son referencias en TA por su flexibilidad y bloqueo firme.</p></div>
+      <div class="card g"><h4>Soporte terminal</h4><p>Sostiene el pulsador con ángulo ajustable para presentar la superficie activa óptimamente al movimiento del usuario.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B2-6 — Brazo articulado dis+capacidad
+     Mensaje: Posicionar bien el pulsador es el último paso, no el primero.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Brazo articulado dis+capacidad">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="tag g">dis+capacidad</span>
+        <h3>Brazo articulado<br><span class="green">dis+capacidad</span></h3>
+      </div>
+      <p class="big" style="max-width:34ch">Se fija a cualquier superficie con borde. Ajustable en altura, ángulo e inclinación. Se bloquea con <strong>una única perilla</strong>.</p>
+      <div class="steps">
+        <div class="step"><div class="s-num" style="background:var(--c-green)">1</div><div class="s-txt"><strong>Asegurar la esfera inferior</strong> con el brazo estirado.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-green)">2</div><div class="s-txt"><strong>Fijar a la prensa</strong> con fuerza.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-green)">3</div><div class="s-txt"><strong>Posicionar y bloquear</strong> según el usuario.</div></div>
+      </div>
+      <div class="hl green">Primero: posicionamiento del usuario y punto de acceso.<br>Último: el brazo.</div>
+    </div>
+    <div id="ph-brazo" class="ph" style="height:100%;min-height:280px" onclick="triggerUpload(this)">
+      <span class="ph-icon">🦾</span>
+      <span class="ph-lbl">Foto: brazo articulado dis+capacidad montado en silla de ruedas</span>
       <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
       <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
     </div>
   </div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 4">
+<!-- ══════════════════════════════════════
+     SLIDE B2-7 — Posicionamiento según sitio de acceso
+     Mensaje: El sitio óptimo depende del movimiento, no del diagnóstico.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Posicionamiento según sitio de acceso">
   <div class="inner">
-    <span class="tag g">Gratuito · Multiplataforma · Open Source</span>
-    <h3>AsTeRICS <span class="green">Grid</span></h3>
-    <p class="big" style="max-width:50ch;">Aplicación web de CAA. Sin instalación. Cualquier dispositivo. <strong>Todos los métodos de acceso en una sola plataforma.</strong></p>
-    <div class="pills">
-      <div class="pill"><div class="dot" style="background:var(--c-accent)"></div>Toque directo</div>
-      <div class="pill"><div class="dot" style="background:var(--c-blue)"></div>Mouse / teclado</div>
-      <div class="pill"><div class="dot" style="background:var(--c-orange)"></div>Barrido con pulsadores</div>
-      <div class="pill"><div class="dot" style="background:var(--c-teal)"></div>Permanencia (dwell)</div>
-      <div class="pill"><div class="dot" style="background:var(--c-green)"></div>Eye tracking</div>
-      <div class="pill"><div class="dot" style="background:var(--c-mid)"></div>Head tracking</div>
-    </div>
-    <div class="hl green">Un usuario puede pasar de <strong>toque directo a barrido con pulsador</strong> en la misma aplicación, sin cambiar de sistema. La herramienta no impone un techo de acceso.</div>
-  </div>
-</section>
-
-<section class="slide slide-content" data-module="Bloque 4">
-  <div class="inner">
-    <h3>Métodos de acceso en <span class="green">AsTeRICS Grid</span></h3>
+    <h3>Posicionamiento según el <span class="green">sitio de acceso</span></h3>
+    <p class="big">El posicionamiento óptimo varía según la parte del cuerpo que el usuario usa para activar.</p>
     <div class="cards">
-      <div class="card"><h4>Mouse / Toque</h4><p>1 evento. Acceso directo. Sin restricción motora significativa.</p></div>
-      <div class="card b"><h4>Permanencia (Dwell)</h4><p>1 evento. Cursor sin clic. Combinar con head mouse o disMouse en modo cursor a 1,5 s.</p></div>
-      <div class="card o"><h4>Barrido (Scanning)</h4><p>1 ó 2 eventos. Clásico acceso por pulsador. Automático o paso a paso. Velocidad ajustable.</p></div>
-      <div class="card g"><h4>Huffman</h4><p>2–9 eventos. Acceso directo por código único. Con 8 botones del disMouse → hasta <strong>8 elementos directos</strong>.</p></div>
+      <div class="card g">
+        <h4>Mano / dedos</h4>
+        <p>Sobre la bandeja, donde la mano descansa naturalmente. En horizontal (presión vertical) o en ángulo (presión lateral), según el tipo de movimiento.</p>
+      </div>
+      <div class="card g">
+        <h4>Cabeza</h4>
+        <p>Junto a la mejilla o la sien del lado más funcional. La superficie activa debe ser <strong>tangente a la trayectoria del movimiento</strong>, no perpendicular. Minimiza la fuerza de activación.</p>
+      </div>
+      <div class="card g">
+        <h4>Rodilla</h4>
+        <p>En el apoyabrazos o soporte lateral, a la altura de la rodilla. Activado por abducción de cadera o extensión de rodilla. Útil cuando las manos no son funcionales pero las piernas conservan movimiento voluntario.</p>
+      </div>
+      <div class="card g">
+        <h4>Pie</h4>
+        <p>En el apoyapiés o en el suelo, orientado para recibir flexión plantar. Indicado en usuarios con función de miembro inferior preservada (ej. LM incompleta).</p>
+      </div>
     </div>
-    <div class="hl green"><strong>Configurar la arquitectura de tableros antes que el método de acceso.</strong> El número de elementos determina qué método es más eficiente.</div>
+    <div id="ph-acceso-sitios" class="ph" style="height:80px" onclick="triggerUpload(this)">
+      <span class="ph-lbl">Foto: ejemplos de posicionamiento en distintos sitios de acceso</span>
+      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+    </div>
   </div>
 </section>
 
-<section class="slide slide-content" data-module="Bloque 4">
+<!-- ══════════════════════════════════════
+     SLIDE B2-8 — Otros contextos + seguridad
+     Mensaje: El montaje debe sostenerse en todos los entornos.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Montaje en otros contextos · Seguridad">
   <div class="inner">
-    <h3>Protocolo de <span class="green">configuración inicial</span></h3>
-    <div class="steps">
-      <div class="step"><div class="s-num" style="background:var(--c-green)">1</div><div class="s-txt"><strong>Diseñar la arquitectura</strong> — papel y lápiz, antes de abrir la app.</div></div>
-      <div class="step"><div class="s-num" style="background:var(--c-green)">2</div><div class="s-txt"><strong>Crear el usuario</strong> — local o con cuenta online.</div></div>
-      <div class="step"><div class="s-num" style="background:var(--c-green)">3</div><div class="s-txt"><strong>Construir los tableros</strong> — elementos, imágenes, acciones y vínculos de navegación.</div></div>
-      <div class="step"><div class="s-num" style="background:var(--c-green)">4</div><div class="s-txt"><strong>Configurar el disMouse</strong> — botones y flechas según el método elegido. Guardar en dispositivo.</div></div>
-      <div class="step"><div class="s-num" style="background:var(--c-green)">5</div><div class="s-txt"><strong>Opciones de entrada en Grid</strong> — asignar teclas, tiempos. Probar con tablero 10×10.</div></div>
-      <div class="step"><div class="s-num" style="background:var(--c-green)">6</div><div class="s-txt"><strong>Documentar</strong> — backup .grd + registro escrito de la configuración de acceso.</div></div>
+    <h3>Otros contextos y <span class="green">seguridad</span></h3>
+    <div class="two-col">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <p class="big" style="max-width:36ch">El pulsador necesita ser accesible en <strong>todos los entornos de uso</strong>, no solo en la silla de ruedas.</p>
+        <div class="card g"><h4>Cama</h4><p>Soportes articulados o abrazaderas en la barra lateral. Puede necesitar reposicionarse según si el usuario está semi-incorporado o acostado.</p></div>
+        <div class="card g"><h4>Mesa / escritorio</h4><p>Soportes con ventosa o peso. Montaje temporal y reubicable sin daño a la superficie.</p></div>
+        <div class="card g"><h4>Transporte</h4><p>El pulsador debe poder fijarse de forma segura durante el traslado, o retirarse fácilmente cuando no se usa.</p></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <p class="big" style="max-width:34ch;font-size:clamp(0.95rem,1.4vw,1.2rem)">El montaje debe <strong>revisarse periódicamente</strong>. Un pulsador que se afloja puede producir activaciones inesperadas — en una silla eléctrica, esto tiene implicaciones directas de seguridad.</p>
+        <div class="steps">
+          <div class="step"><div class="s-num" style="background:var(--c-green)">✓</div><div class="s-txt">Verificar el ajuste al inicio de cada sesión.</div></div>
+          <div class="step"><div class="s-num" style="background:var(--c-green)">✓</div><div class="s-txt">Instruir a cuidadores y familia en cómo verificar y ajustar el montaje.</div></div>
+          <div class="step"><div class="s-num" style="background:var(--c-green)">✓</div><div class="s-txt">Documentar la posición exacta con fotografías para facilitar la replicación.</div></div>
+        </div>
+      </div>
     </div>
-    <div class="hl green" style="font-size:10px"><strong>Sin documentación, la próxima sesión empieza desde cero.</strong> Los parámetros de Grid se guardan en el perfil del navegador — si cambia el navegador, se pierde la configuración.</div>
   </div>
 </section>
 
-<!-- ══ CIERRE ══ -->
-<section class="slide slide-cover" data-module="Cierre">
-  <div class="eyebrow">dis+capacidad · TA + EpE</div>
-  <h1 style="font-size:clamp(1.7rem,4.5vw,3.8rem);max-width:20ch">La herramienta correcta, en el momento correcto, para la persona correcta.</h1>
-  <p class="subtitle" style="margin-top:22px">¿Preguntas?</p>
-  <div class="logo-area">
-    <div class="logo-dot" style="background:var(--c-accent)"></div>
-    <div class="logo-dot" style="background:var(--c-blue)"></div>
-    <div class="logo-dot" style="background:var(--c-orange)"></div>
-    <div class="logo-dot" style="background:var(--c-teal)"></div>
-    <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-left:6px;opacity:.5">dis+capacidad</span>
+<!-- ══════════════════════════════════════
+     SEPARADOR — Anexo iOS y Android
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-teal)" data-module="Anexo iOS y Android">
+  <div class="mcontent">
+    <div class="blq">Bloque 2 · Anexo</div>
+    <h2>Accesibilidad en iOS y Android</h2>
+    <p class="sub">Cómo los dispositivos móviles se convierten en entornos de acceso adaptado.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B2-9 — Mapa de herramientas iOS/Android
+     Mensaje: Ambas plataformas ofrecen accesibilidad robusta y gratuita.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Mapa de herramientas iOS y Android">
+  <div class="inner">
+    <h3>Mapa de <span class="teal">herramientas</span></h3>
+    <p class="big">Antes de evaluar qué herramienta usar, conviene saber qué dispositivo tiene el usuario. <strong>Si el usuario ya tiene uno, la decisión está tomada</strong>: el trabajo del terapeuta es sacarle el máximo partido a lo que hay.</p>
+    <table class="mini-table">
+      <tr><th>Función</th><th>iOS / iPadOS</th><th>Android</th></tr>
+      <tr><td><strong>Escaneo con pulsadores</strong></td><td>Switch Control</td><td>Switch Access</td></tr>
+      <tr><td><strong>Cursor con mouse / trackball</strong></td><td>AssistiveTouch</td><td>Menú de accesibilidad</td></tr>
+      <tr><td><strong>Dwell / clic por permanencia</strong></td><td>Dwell Control (vía AssistiveTouch)</td><td>Auto-click (Interacción y destreza)</td></tr>
+      <tr><td><strong>Control por voz</strong></td><td>Voice Control (nativo)</td><td>Voice Access (requiere instalación)</td></tr>
+      <tr><td><strong>Eye tracking nativo</strong></td><td>Sí (iOS 18+, FaceID)</td><td>No nativo</td></tr>
+      <tr><td><strong>Head tracking sin hardware</strong></td><td>Sí (cámara frontal)</td><td>No nativo</td></tr>
+      <tr><td><strong>Atajo de accesibilidad</strong></td><td>Triple clic botón lateral</td><td>Botón flotante o atajo de volumen</td></tr>
+    </table>
+    <div class="hl teal">iOS tiene ventaja en <strong>CAA</strong> (mayor oferta de apps, mejor integración). Android tiene ventaja en <strong>costo</strong>: un tablet de gama media es significativamente más económico que un iPad.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B2-10 — Switch Control y Switch Access
+     Mensaje: El resaltado avanza. El usuario elige el momento.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Switch Control y Switch Access">
+  <div class="inner">
+    <h3><span class="teal">Switch Control</span> y <span class="teal">Switch Access</span></h3>
+    <p class="big">Un resaltado recorre la pantalla. El usuario activa el pulsador cuando llega al elemento deseado. Eso es el <strong>escaneo</strong>.</p>
+    <div class="cards">
+      <div class="card t"><h4>1 pulsador — automático</h4><p>El sistema avanza solo. Menor demanda motora.</p></div>
+      <div class="card t"><h4>2 pulsadores — dirigido</h4><p>Uno avanza, el otro confirma. Mayor velocidad y autonomía.</p></div>
+      <div class="card t"><h4>Velocidad de escaneo</h4><p>Empezar en 3–4 s y reducir. Alta tasa de error = demasiado rápido.</p></div>
+      <div class="card t"><h4>Patrón</h4><p><strong>Lineal:</strong> elemento a elemento. <strong>Fila-columna:</strong> reduce activaciones en grillas grandes.</p></div>
+    </div>
+    <div class="hl teal">Configurar el <strong>atajo de accesibilidad antes de activar el escaneo</strong>. Sin él, salir cuando algo falla puede ser imposible.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B2-11a — disMouse en iOS
+     Mensaje: Dos capas de configuración que se potencian.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse en iOS">
+  <div class="inner">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span class="tag t">dis+capacidad · iOS / iPadOS</span>
+      <h3>El <span class="teal">disMouse</span> en iOS</h3>
+    </div>
+    <p class="big">Conectado por USB (adaptador OTG) o Bluetooth, funciona como dispositivo apuntador dentro de AssistiveTouch. <strong>Dos capas que se potencian</strong>: el Configurador define qué hace cada botón; iOS define qué acción del sistema ejecutan.</p>
+    <table class="mini-table">
+      <tr><th>Botón</th><th>Configurador dis+</th><th>Función en iOS</th></tr>
+      <tr><td>Flechas ↑↓←→</td><td>Mouse → Cursor</td><td>Mover el cursor por la pantalla</td></tr>
+      <tr><td>Botón Rojo</td><td>Mouse → Clic izquierdo → Al presionar</td><td>Toque / selección</td></tr>
+      <tr><td>Botón Azul</td><td>Mouse → Clic derecho → Al presionar</td><td>Menú contextual</td></tr>
+      <tr><td>Botón Naranja</td><td>Mouse → Scroll arriba → Al presionar</td><td>Desplazar hacia arriba</td></tr>
+      <tr><td>Botón Celeste</td><td>Mouse → Scroll abajo → Al presionar</td><td>Desplazar hacia abajo</td></tr>
+    </table>
+    <div class="hl teal">iOS no soporta Web Bluetooth en el navegador. Para configurar el disMouse antes de usarlo con un iPad: <strong>conectarlo a una PC o tablet Android</strong>, guardar la configuración, y luego usarlo por Bluetooth con el iPad sin problema.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B2-11b — disMouse en Android + Dwell/Auto-click
+     Mensaje: Cursor + tiempo de permanencia = 1 solo movimiento voluntario.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse en Android · Dwell y Auto-click">
+  <div class="inner">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span class="tag t">dis+capacidad · Android · iOS</span>
+      <h3>Cursor + <span class="teal">permanencia</span> (Dwell / Auto-click)</h3>
+    </div>
+    <p class="big">Para usuarios que mueven el cursor pero <strong>no tienen un segundo punto de acceso confiable</strong>. El sistema selecciona automáticamente al quedarse quieto sobre el elemento.</p>
+    <div class="cards">
+      <div class="card t"><h4>Dwell Control · iOS</h4><p>AssistiveTouch → Dwell Control. Empezar en 1,5 s.</p></div>
+      <div class="card t"><h4>Auto-click · Android</h4><p>Accesibilidad → Interacción y destreza → Clic automático. Empezar en 0,8 s.</p></div>
+      <div class="card t"><h4>Velocidad del cursor</h4><p>Ajustar en <strong>dos lugares</strong>: Configurador dis+ (aceleración) + sistema operativo (velocidad máxima).</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B2-12 — Criterios de decisión iOS vs Android
+     Mensaje: La plataforma correcta es la que el usuario ya tiene.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="iOS vs Android: criterios de decisión">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <h3>¿<span class="teal">iOS</span> o <span class="teal">Android</span>?</h3>
+      <p class="big" style="max-width:34ch">La elección no debería basarse en las preferencias del terapeuta, sino en la <strong>situación concreta del usuario</strong>.</p>
+      <div class="hl teal">Si el usuario ya tiene un dispositivo, la decisión está tomada. El trabajo es <strong>sacarle el máximo partido a lo que hay</strong>.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card t"><h4>Elegir Android si...</h4><p>El costo es determinante. Un tablet Android de gama media es significativamente más económico que un iPad.</p></div>
+      <div class="card t"><h4>Elegir iOS si...</h4><p>La CAA es prioritaria (Grid 3, Proloquo2Go, mejor integración con Switch Control). Se necesita Head Tracking sin hardware adicional. El usuario es candidato a Eye Tracking nativo (iOS 18+).</p></div>
+      <div class="card t"><h4>En cualquier caso...</h4><p>La combinación disMouse + accesibilidad del sistema operativo funciona en ambas plataformas. La lógica clínica de configuración es la misma.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B2-13 — Buenas prácticas
+     Mensaje: Los errores más frecuentes son los más fáciles de prevenir.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Buenas prácticas en accesibilidad móvil">
+  <div class="inner">
+    <h3>Buenas prácticas en <span class="teal">accesibilidad móvil</span></h3>
+    <p class="big" style="max-width:56ch">Los errores más frecuentes son los más fáciles de prevenir si se anticipan.</p>
+    <div class="two-col">
+      <div class="steps">
+        <div class="step"><div class="s-num" style="background:var(--c-teal)">1</div><div class="s-txt"><strong>Configurar el atajo siempre primero.</strong> Sin él, desactivar el escaneo cuando algo falla puede ser imposible.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-teal)">2</div><div class="s-txt"><strong>Emparejar el pulsador antes de activar Switch Control.</strong> Sin pulsador configurado, el dispositivo queda en escaneo sin poder salir.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-teal)">3</div><div class="s-txt"><strong>Comenzar con velocidad de escaneo lenta.</strong> 3–4 segundos y reducir gradualmente. Alta tasa de error = velocidad demasiado rápida.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-teal)">4</div><div class="s-txt"><strong>Separar la evaluación motora de la cognitiva.</strong> No usar CAA compleja para evaluar si el usuario comprende el escaneo.</div></div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="s-num" style="background:var(--c-teal)">5</div><div class="s-txt"><strong>Documentar la configuración exacta.</strong> Velocidad, patrón, pulsadores, adaptadores. Sin documentación, cada sesión empieza desde cero.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-teal)">6</div><div class="s-txt"><strong>Capacitar al cuidador en cómo desactivar el escaneo.</strong> El triple clic del atajo es lo mínimo que deben saber.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-teal)">7</div><div class="s-txt"><strong>Verificar compatibilidad de la app de CAA</strong> con el sistema de escaneo antes de la sesión. No todas las apps implementan correctamente los atributos de accesibilidad.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-teal)">8</div><div class="s-txt"><strong>Combinar métodos cuando sea posible.</strong> Pulsador para escaneo + voz para comandos frecuentes. Flechas para cursor + Dwell para selección. Reduce la fatiga.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SEPARADOR — Anexo Windows y macOS
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-blue)" data-module="Anexo Windows y macOS">
+  <div class="mcontent">
+    <div class="blq">Bloque 2 · Anexo</div>
+    <h2>Accesibilidad en Windows y macOS</h2>
+    <p class="sub">Panorama de herramientas nativas y de terceros para el uso funcional de la computadora.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE Win/Mac-1 — Mapa de herramientas nativas
+     Mensaje: Windows requiere más de terceros. macOS tiene más nativo.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Mapa de herramientas Windows y macOS">
+  <div class="inner">
+    <h3>Lo que ofrecen <span class="blue">de forma nativa</span></h3>
+    <p class="big">Para muchos usuarios las herramientas nativas son suficientes; para otros, son la <strong>base sobre la que se agrega equipamiento especializado</strong>.</p>
+    <table class="mini-table">
+      <tr><th>Función</th><th>Windows 11</th><th>macOS</th></tr>
+      <tr><td><strong>Barrido con pulsadores</strong></td><td>❌ Requiere software de terceros</td><td>✅ Switch Control integrado</td></tr>
+      <tr><td><strong>Eye tracking</strong></td><td>✅ Eye Control (hardware compatible)</td><td>❌ No nativo</td></tr>
+      <tr><td><strong>Head tracking sin hardware</strong></td><td>❌ Requiere software de terceros</td><td>✅ Head Pointer (cámara integrada)</td></tr>
+      <tr><td><strong>Control por voz</strong></td><td>✅ Voice Access</td><td>✅ Voice Control</td></tr>
+      <tr><td><strong>Dwell / clic por permanencia</strong></td><td>⚠️ Solo funcional con software de terceros</td><td>✅ Integrado</td></tr>
+      <tr><td><strong>Expresiones faciales como clic</strong></td><td>❌ No nativo</td><td>✅ Sonrisa, boca abierta + Head Pointer</td></tr>
+    </table>
+    <div class="hl blue"><strong>Limitación clave de Windows:</strong> no tiene Switch Control nativo. Para control completo del sistema con pulsadores, se necesita software de terceros.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE Win/Mac-2 — Software de barrido para Windows
+     Mensaje: El software de barrido es el puente entre el pulsador y Windows.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Software de barrido para Windows">
+  <div class="inner">
+    <h3>Software de barrido <span class="blue">para Windows</span></h3>
+    <p class="big" style="max-width:56ch">Para control completo de Windows con uno o dos pulsadores, se necesita software que interprete las señales y las traduzca en acciones del sistema.</p>
+    <div class="cards">
+      <div class="card b">
+        <h4>Rata Plaphoons — gratuito</h4>
+        <p>Referente histórico (Projecte Fressa). Emula todas las funciones del mouse mediante barrido automático (1 pulsador) o dirigido (2). Compatible con cualquier software de Windows.<br><br><em>Limitación:</em> diseñado para Windows XP/7. Puede presentar inestabilidades en versiones modernas. Sin actualizaciones activas.</p>
+      </div>
+      <div class="card b">
+        <h4>MPB — Mouse por Barrido — gratuito</h4>
+        <p>Alternativa similar (Antonio Sacco). Manejo completo del puntero con un único pulsador. Trabaja en modo residente sin interferir con otros programas.</p>
+      </div>
+      <div class="card b">
+        <h4>CrossScanner — pago</h4>
+        <p>Solución comercial más completa (RJ Cooper). Control total de Windows con 1 o 2 pulsadores: menús, arrastrar y soltar, teclado en pantalla integrado.</p>
+      </div>
+    </div>
+    <div class="hl blue">El <strong>disMouse en modo Barrido Automático o Dirigido</strong> emula el comportamiento de Rata Plaphoons o MPB sin software adicional ni drivers. Funciona en cualquier dispositivo con el mismo sistema.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE Win/Mac-3 — Tracky Mouse
+     Mensaje: Head tracking gratuito — y el potencial va mucho más allá.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Tracky Mouse">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="tag b">Head tracking gratuito · Open source</span>
+        <h3>Tracky <span class="blue">Mouse</span></h3>
+      </div>
+      <p class="big" style="max-width:34ch">Controla el cursor con el movimiento de la cabeza usando únicamente la cámara web. Dwell clicking integrado. <strong>Gratuito, sin drivers, sin instalación especial.</strong></p>
+      <div class="steps">
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">→</div><div class="s-txt">Aplicación de escritorio independiente <em>o</em> librería embebida en aplicaciones web.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">→</div><div class="s-txt">Detección de rostro con seguimiento óptico de flujo. Más estable que otras alternativas gratuitas.</div></div>
+        <div class="step"><div class="s-num" style="background:var(--c-blue)">→</div><div class="s-txt">Puede integrarse en aplicaciones web: tableros de CAA, entornos de entrenamiento o interfaces educativas con control cefálico <em>nativo</em> de la aplicación.</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="hl blue">Su mayor potencial clínico es la posibilidad de <strong>desarrollar entornos de acceso a medida</strong> sin costo de licencia y con control total sobre la interfaz.</div>
+      <div class="card b">
+        <h4>El rol de la ingeniería biomédica</h4>
+        <p>Implementar Tracky Mouse como librería en una aplicación web requiere leer documentación técnica y ajustar los parámetros al perfil motor del usuario. Es exactamente el tipo de tarea del ingeniero biomédico en el equipo: convierte la evaluación clínica en una solución técnica concreta, sin costo de licencia.</p>
+      </div>
+      <div id="ph-tracky" class="ph" style="height:90px" onclick="triggerUpload(this)">
+        <span class="ph-lbl">Captura: Tracky Mouse en uso / interfaz de control cefálico</span>
+        <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+        <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+      </div>
+    </div>
   </div>
 </section>
 
@@ -745,20 +1338,26 @@
     document.getElementById('mod-ind').textContent = slides[cur].dataset.module||'';
   }
 
-  function go(d){
-    if(busy) return;
-    const nxt = cur+d;
-    if(nxt<0||nxt>=slides.length) return;
-    busy = true;
+  function goTo(n){
+    if(busy||n===cur||n<0||n>=slides.length) return;
+    const d = n>cur?1:-1;
+    busy=true;
     slides[cur].classList.remove('active');
     if(d>0) slides[cur].classList.add('exit');
-    slides[nxt].style.transform = d<0?'translateX(-40px)':'translateX(40px)';
-    slides[nxt].style.opacity = '0';
-    slides[nxt].classList.add('active');
-    requestAnimationFrame(()=>{ slides[nxt].style.transform=''; slides[nxt].style.opacity=''; });
-    setTimeout(()=>{ slides[cur].classList.remove('exit'); cur=nxt; updateUI(); busy=false; }, 380);
-    cur = nxt; updateUI();
+    slides[n].style.transform = d<0?'translateX(-40px)':'translateX(40px)';
+    slides[n].style.opacity='0';
+    slides[n].classList.add('active');
+    requestAnimationFrame(()=>{ slides[n].style.transform=''; slides[n].style.opacity=''; });
+    setTimeout(()=>{ slides[cur].classList.remove('exit'); cur=n; updateUI(); busy=false; }, 380);
   }
+
+  function go(d){ goTo(cur+d); }
+
+  document.getElementById('progress-track').addEventListener('click', function(e){
+    const pct = e.clientX / window.innerWidth;
+    const target = Math.round(pct * (slides.length - 1));
+    goTo(target);
+  });
 
   document.addEventListener('keydown', e=>{
     if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ') go(1);
@@ -766,11 +1365,11 @@
     if(e.key==='Escape') closeModal();
   });
 
-  let tx = null;
+  let tx=null;
   document.addEventListener('touchstart', e=>{ tx=e.touches[0].clientX; },{passive:true});
   document.addEventListener('touchend', e=>{
     if(tx===null) return;
-    const dx = e.changedTouches[0].clientX-tx;
+    const dx=e.changedTouches[0].clientX-tx;
     if(Math.abs(dx)>48) go(dx<0?1:-1);
     tx=null;
   },{passive:true});
@@ -778,19 +1377,19 @@
   function triggerUpload(el){ el.querySelector('input[type="file"]').click(); }
 
   function loadImage(event, container){
-    const file = event.target.files[0]; if(!file) return;
-    const url = URL.createObjectURL(file);
+    const file=event.target.files[0]; if(!file) return;
+    const url=URL.createObjectURL(file);
     container.querySelectorAll('.ph-icon,.ph-lbl,.ph-btn').forEach(el=>el.style.display='none');
-    let img = container.querySelector('img.up');
+    let img=container.querySelector('img.up');
     if(!img){ img=document.createElement('img'); img.className='up'; container.appendChild(img); }
-    img.src = url;
-    img.onclick = (e)=>{ e.stopPropagation(); openModal(url); };
+    img.src=url;
+    img.onclick=(e)=>{ e.stopPropagation(); openModal(url); };
     container.querySelector('input[type="file"]').style.display='none';
   }
 
   function openModal(src){ document.getElementById('modal-img').src=src; document.getElementById('modal').classList.add('open'); }
   function closeModal(){ document.getElementById('modal').classList.remove('open'); }
-  document.getElementById('modal').addEventListener('click', e=>{ if(e.target===document.getElementById('modal')) closeModal(); });
+  document.getElementById('modal').addEventListener('click',e=>{ if(e.target===document.getElementById('modal')) closeModal(); });
 
   updateUI();
 </script>
