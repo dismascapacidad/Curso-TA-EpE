@@ -1311,6 +1311,284 @@
   </div>
 </section>
 
+
+<!-- ══════════════════════════════════════
+     BLOQUE 3 — módulo
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-orange)" data-module="Bloque 3">
+  <div class="mcontent">
+    <div class="blq">Bloque 3</div>
+    <h2>Acceso Directo</h2>
+    <p class="sub">Del cuerpo a la pantalla: opciones, adaptaciones y el disMouse como herramienta clínica.</p>
+  </div>
+  <div class="m-num">3</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOQUE 3 · Sección 1 — separador
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-accent)" data-module="Acceso con el cuerpo">
+  <div class="mcontent">
+    <div class="blq">Bloque 3 · El cuerpo como interfaz</div>
+    <h2>Acceso directo con el cuerpo</h2>
+    <p class="sub">Partes del cuerpo, teclados adaptados y ajustes del sistema operativo.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-1 — El acceso directo como punto de partida
+     Mensaje: Evaluar acceso directo primero, siempre.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Acceso directo">
+  <div class="inner">
+    <h3>El acceso directo es el <span class="orange">primer escalón</span></h3>
+    <p class="big">El usuario toca o señala directamente el elemento que quiere. Sin escaneo, sin intermediarios. Es más rápido y menos demandante cognitivamente. <strong>Se evalúa primero.</strong></p>
+    <div class="hl orange">Si puede señalar con precisión y confiabilidad → <strong>acceso directo</strong>.<br>Si no puede, o solo parcialmente → se adapta el acceso directo <em>antes</em> de pasar a métodos indirectos.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-2 — Acceso con diferentes partes del cuerpo
+     Mensaje: No hay una sola forma correcta de acceder.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Partes del cuerpo">
+  <div class="inner">
+    <h3>Cualquier parte del cuerpo puede ser la <span class="orange">interfaz</span></h3>
+    <p class="big">El punto de acceso lo define el usuario, no el dispositivo.</p>
+    <div class="cards">
+      <div class="card o"><h4>Dedo índice</h4><p>Lo más habitual. Si no hay aislamiento, el resto de la mano actúa como guía.</p></div>
+      <div class="card o"><h4>Mano / puño</h4><p>Para control grueso de muñeca y codo, sin aislamiento de dedo.</p></div>
+      <div class="card o"><h4>Otros dedos / nudillo</h4><p>Cuando la extensión no es posible pero sí la flexión.</p></div>
+      <div class="card o"><h4>Pie</h4><p>Para usuarios sin función en miembros superiores. Completamente válido.</p></div>
+      <div class="card o"><h4>Codo</h4><p>Cuando hay movimiento de barrido de brazo pero sin control distal.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-3 — Teclados adaptados y sobreteclado
+     Mensaje: El teclado también se adapta al usuario.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Teclados adaptados">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <h3>Cuando el teclado estándar <span class="orange">no alcanza</span></h3>
+      <div class="cards">
+        <div class="card o"><h4>Expandido</h4><p>Teclas grandes. Para temblor o espasticidad moderada.</p></div>
+        <div class="card o"><h4>Reducido</h4><p>Rango muy limitado con buen control fino.</p></div>
+        <div class="card o"><h4>Una mano</h4><p>Disposición optimizada para uso unilateral.</p></div>
+        <div class="card o"><h4>Membrana</h4><p>Superficie plana, sin fuerza de recorrido mecánico.</p></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span class="tag o">Adaptación clave</span>
+        <h3 style="font-size:clamp(1.4rem,2.8vw,2.4rem)">Sobreteclado</h3>
+      </div>
+      <p class="big">Cubierta con orificios superpuesta a teclado o pantalla táctil. Cada apertura aísla una sola tecla o zona.</p>
+      <div class="hl orange"><strong>Evita</strong> toques inadvertidos · <strong>Provee</strong> punto de apoyo · <strong>Reduce</strong> demanda de precisión</div>
+      <div id="ph-sobreteclado" class="ph" style="height:90px" onclick="triggerUpload(this)">
+        <span class="ph-lbl">Foto: sobreteclado sobre tablet</span>
+        <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+        <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-4 — Ajustes de pantalla táctil
+     Mensaje: El SO ya tiene herramientas. Explorarlas primero.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Ajustes táctiles del SO">
+  <div class="inner">
+    <h3>El sistema operativo como <span class="orange">primera TA</span></h3>
+    <p class="big">iOS, Android y Windows ofrecen herramientas gratuitas y potentes. Son el primer paso para perfiles de acceso leve a moderado.</p>
+    <div class="cards">
+      <div class="card o"><h4>Dwell (permanencia)</h4><p>Activa al quedarse quieto sobre un área. Para temblor o arrastre involuntario.</p></div>
+      <div class="card o"><h4>Release time</h4><p>La selección se registra al retirar el dedo, no al tocar. Equivalente al modo "Al soltar" del disMouse.</p></div>
+      <div class="card o"><h4>Touch accommodation</h4><p>Filtra toques muy breves o acepta solo los mantenidos. Lógica similar al debounce.</p></div>
+      <div class="card o"><h4>AssistiveTouch · iOS</h4><p>Reemplaza gestos complejos por secuencias simples o un menú superpuesto.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOQUE 3 · Sección 2 — separador
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-blue)" data-module="Mouse alternativo">
+  <div class="mcontent">
+    <div class="blq">Bloque 3 · Acceso con mouse alternativo</div>
+    <h2>Más allá del mouse estándar</h2>
+    <p class="sub">Joystick, trackball, touchpad y mouse adaptado con botones separados.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-5 — Mouse alternativo: opciones
+     Mensaje: La función se mantiene; la mecánica se adapta.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Mouse alternativo">
+  <div class="inner">
+    <h3>Misma función, <span class="blue">mecánica adaptada</span></h3>
+    <p class="big">El mouse estándar exige agarre, desplazamiento y coordinación ojo-mano simultáneos. Cualquier alteración en una de estas habilidades puede hacerlo inaccesible.</p>
+    <div class="cards">
+      <div class="card b"><h4>Mouse adaptado</h4><p>Botones de clic separados del control del cursor. Cada función se ubica donde sea accesible.</p></div>
+      <div class="card b"><h4>Joystick</h4><p>Palanca → cursor. Adaptable en tamaño y forma para distintos tipos de agarre o control con mentón.</p></div>
+      <div class="card b"><h4>Trackball</h4><p>La bola gira; el dispositivo no se mueve. Se controla con cualquier parte de la mano.</p></div>
+      <div class="card b"><h4>Touchpad</h4><p>Arrastre sin agarre. Velocidad, zona de desplazamiento y presión mínima son configurables.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOQUE 3 · Sección 3 — separador
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-accent)" data-module="disMouse · evaluación">
+  <div class="mcontent">
+    <div class="blq">Bloque 3 · dis+capacidad</div>
+    <h2>El disMouse como herramienta de evaluación</h2>
+    <p class="sub">Un dispositivo que acompaña evaluación, entrenamiento y seguimiento sin ser reemplazado.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-6 — Un dispositivo, múltiples momentos
+     Mensaje: Lo valioso es lo que permite hacer en cada etapa sin cambiar de objeto.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse · proceso">
+  <div class="inner">
+    <h3>Un dispositivo, <span class="accent">múltiples momentos</span></h3>
+    <p class="big">Configurable en tiempo real — sin herramientas ni reinicio — permite atravesar evaluación, entrenamiento y seguimiento <strong>sin cambiar de objeto físico</strong>.</p>
+    <div class="two-col">
+      <div class="hl">La <strong>familiaridad</strong> con el dispositivo reduce la curva de aprendizaje y facilita la generalización al entorno domiciliario.</div>
+      <div class="hl">La <strong>configuración cambia</strong> en cada etapa del proceso. El dispositivo que el usuario ya conoce, no.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-7 — Características físicas y lectura clínica
+     Mensaje: Cada decisión de diseño tiene una lectura clínica directa.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse · diseño físico">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <h3>Diseño físico con <span class="accent">lectura clínica</span></h3>
+      <div class="cards">
+        <div class="card"><h4>Botones amplios y bajo relieve</h4><p>Reduce la demanda de precisión. Determinante en temblor o control grueso.</p></div>
+        <div class="card"><h4>Conectores para pulsadores externos</h4><p>Distintas funciones desde distintas partes del cuerpo, sin modificar el configurador.</p></div>
+        <div class="card"><h4>Ventosas + cubierta tipo sobreteclado</h4><p>Fija el dispositivo y aísla los botones. Correcciones físicas sin tocar el software.</p></div>
+        <div class="card"><h4>Feedback multimodal · Bluetooth</h4><p>Lumínico, sonoro y vibratorio. Inalámbrico: el dispositivo va donde lo necesita el usuario.</p></div>
+      </div>
+    </div>
+    <div id="ph-dismouse-fisico" class="ph" style="height:100%;min-height:260px" onclick="triggerUpload(this)">
+      <span class="ph-icon">🖱️</span>
+      <span class="ph-lbl">Foto: disMouse con cubierta y pulsadores externos conectados</span>
+      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-8 — Modo de activación
+     Mensaje: El modo de activación revela el perfil motor del usuario.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse · modo de activación">
+  <div class="inner">
+    <h3>Modo de activación: <span class="accent">qué parte del gesto es la acción</span></h3>
+    <div class="cards">
+      <div class="card"><h4>Al presionar</h4><p>Acción al inicio del contacto. Para usuarios con buen control del inicio del movimiento. Cualquier toque genera la acción.</p></div>
+      <div class="card"><h4>Al soltar</h4><p>Acción al liberar. Para espasticidad o usuarios que descansan la mano. El momento de liberación es la acción intencional.</p></div>
+      <div class="card"><h4>Bloqueable</h4><p>Pulsación sostenida activa/desactiva la función de forma continua. Permite arrastrar sin dos acciones simultáneas.</p></div>
+    </div>
+    <div class="hl">Si rinde mejor <strong>"al soltar"</strong> → el inicio del movimiento es menos controlado que la finalización. Patrón frecuente en <strong>espasticidad</strong>.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-9 — Debounce
+     Mensaje: El debounce convierte la variabilidad motora en un número ajustable.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse · debounce">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <h3>Debounce: filtrando el <span class="accent">ruido motor</span></h3>
+      <p class="big">Tiempo mínimo sin perturbaciones antes de registrar una activación. Filtra temblor, espasticidad y variabilidad temporal del gesto.</p>
+      <div class="hl">Punto de partida: <strong>150–250 ms</strong>.<br>Más de 500 ms puede ser inaccesible para fuerza reducida o temblor persistente.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card"><h4>En "Al presionar"</h4><p>Mide inactividad desde el último contacto. El contador se reinicia con cada roce. El temblor continuo puede bloquear la activación.</p></div>
+      <div class="card"><h4>En "Al soltar"</h4><p>Mide tiempo entre presión y liberación. Si se suelta antes del umbral, la acción no ocurre.</p></div>
+      <div class="hl" style="font-size:clamp(0.82rem,1vw,0.94rem)"><strong>Lectura clínica:</strong> el valor mínimo con el que el usuario activa sin ruido es un indicador del control temporal del movimiento.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-10 — Número de botones y complejidad incremental
+     Mensaje: Empezar con menos y agregar de a uno.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse · complejidad incremental">
+  <div class="inner">
+    <h3>Complejidad <span class="accent">incremental</span></h3>
+    <p class="big">Iniciar con un solo botón. Validar ese acceso. Agregar funciones de a una, a ritmo del desempeño observado.</p>
+    <div class="two-col">
+      <div class="hl">Activar todos los botones desde el inicio satura al usuario antes de tener información suficiente.</div>
+      <div class="hl"><strong>Causa-Efecto:</strong> un botón · clic izquierdo · debounce 250 ms. El punto de entrada más frecuente en etapas tempranas.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-11 — Del consultorio al domicilio
+     Mensaje: Documentar es parte del tratamiento.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse · documentar">
+  <div class="inner">
+    <h3>Del consultorio al <span class="accent">domicilio</span></h3>
+    <p class="big">El usuario aprende en sesión, pero en casa las condiciones cambian. Si la familia no puede reconfigurar, el sistema se vuelve frágil.</p>
+    <div class="steps">
+      <div class="step"><div class="s-num">1</div><div class="s-txt">Guardar configuraciones con nombre propio: <strong>"Tomás — sesión"</strong>, <strong>"Tomás — casa"</strong>.</div></div>
+      <div class="step"><div class="s-num">2</div><div class="s-txt">Cualquier integrante del equipo o la familia puede aplicar el perfil en segundos.</div></div>
+      <div class="step"><div class="s-num">3</div><div class="s-txt">Cada perfil es una fotografía del proceso, comparable con instancias posteriores para evaluar evolución.</div></div>
+    </div>
+    <div class="hl">El configurador es una herramienta de <strong>documentación</strong> además de personalización.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-12 — Del mouse al pulsador
+     Mensaje: El hardware no cambia. Lo que cambia es la configuración.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse → pulsador">
+  <div class="inner">
+    <h3>Del <span class="accent">mouse</span> al pulsador</h3>
+    <p class="big">Al desactivar las flechas y configurar los botones, el disMouse se convierte en un <strong>pulsador USB multifunción</strong>. El hardware es el mismo; la configuración, no.</p>
+    <div class="two-col">
+      <div class="card"><h4>Pulsador externo</h4><p>Se conecta al conector correspondiente y cumple exactamente la misma función que el botón físico — sin modificar el configurador.</p></div>
+      <div class="hl">En condiciones progresivas, el punto de acceso físico puede cambiar sin cambiar la configuración lógica. <strong>La topografía cambia; el sistema, no.</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B3-13 — Modos de barrido desde el disMouse
+     Mensaje: El mismo dispositivo puede ser la puerta al acceso indirecto.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse · modos de barrido">
+  <div class="inner">
+    <h3>Modos de barrido desde el <span class="accent">disMouse</span></h3>
+    <p class="big">Desde el firmware, sin instalar software adicional. Clave en Android e iOS donde el software de barrido de escritorio no está disponible.</p>
+    <div class="cards">
+      <div class="card"><h4>Barrido Dirigido · Shift + Rojo</h4><p><strong>2 pulsadores.</strong> Un botón avanza, otro confirma. El usuario controla el ritmo. Sin presión temporal.</p></div>
+      <div class="card"><h4>Barrido Automático · Shift + Naranja</h4><p><strong>1 pulsador.</strong> El ciclo avanza solo cada 1,5 s. El usuario activa cuando se ilumina el paso deseado.</p></div>
+      <div class="card"><h4>Modo Snake · Shift + Azul</h4><p><strong>1 botón, cursor completo.</strong> La flecha derecha mueve el cursor; cada pulsación rota la dirección en ciclo.</p></div>
+    </div>
+  </div>
+</section>
+
 </div><!-- #deck -->
 
 <div id="nav">
