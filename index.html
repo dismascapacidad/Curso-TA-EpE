@@ -96,7 +96,7 @@
 
   /* ── TYPOGRAPHY ── */
   h3 {
-    font-family: var(--font-d); font-size: clamp(1.5rem,min(3.8vw,5.8vh),3rem);
+    font-family: var(--font-d); font-size: clamp(1.9rem,min(4.9vw,7.5vh),3.9rem);
     font-weight: 700; line-height: 1.1;
   }
   h3 .accent { color: var(--c-accent); }
@@ -107,7 +107,7 @@
 
   /* Big statement — the slide's central message */
   .big {
-    font-size: clamp(0.95rem,min(1.65vw,2.4vh),1.45rem); color: var(--c-mid);
+    font-size: clamp(1.2rem,min(2.1vw,3.1vh),1.85rem); color: var(--c-mid);
     line-height: 1.55; font-weight: 300; max-width: 56ch;
   }
   .big strong { color: var(--c-ink); font-weight: 500; }
@@ -153,8 +153,8 @@
   .card.o { border-color: var(--c-orange); }
   .card.t { border-color: var(--c-teal); }
   .card.g { border-color: var(--c-green); }
-  .card h4 { font-family: var(--font-d); font-size: clamp(0.82rem,min(1.1vw,1.7vh),1rem); font-weight: 700; margin-bottom: 4px; color: var(--c-ink); }
-  .card p  { font-size: clamp(0.78rem,min(1vw,1.55vh),0.92rem); color: var(--c-mid); line-height: 1.5; }
+  .card h4 { font-family: var(--font-d); font-size: clamp(1.05rem,min(1.4vw,2.2vh),1.3rem); font-weight: 700; margin-bottom: 4px; color: var(--c-ink); }
+  .card p  { font-size: clamp(1rem,min(1.3vw,2vh),1.2rem); color: var(--c-mid); line-height: 1.5; }
 
   /* ── STEPS ── */
   .steps { display: flex; flex-direction: column; gap: clamp(6px,1vh,10px); width: 100%; }
@@ -164,13 +164,13 @@
     background: var(--c-accent); min-width: 24px; height: 24px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
   }
-  .s-txt { font-size: clamp(0.82rem,min(1.1vw,1.65vh),1rem); line-height: 1.5; color: var(--c-mid); }
+  .s-txt { font-size: clamp(1.05rem,min(1.4vw,2.1vh),1.3rem); line-height: 1.5; color: var(--c-mid); }
   .s-txt strong { color: var(--c-ink); }
 
   /* ── HIGHLIGHT ── */
   .hl {
     background: #FFF2F0; border: 1.5px solid #F9C8C0; border-radius: var(--radius);
-    padding: clamp(9px,1.3vh,13px) clamp(13px,1.4vw,18px); font-size: clamp(0.82rem,min(1.1vw,1.65vh),0.98rem); color: var(--c-mid); line-height: 1.55;
+    padding: clamp(9px,1.3vh,13px) clamp(13px,1.4vw,18px); font-size: clamp(1.05rem,min(1.4vw,2.1vh),1.3rem); color: var(--c-mid); line-height: 1.55;
   }
   .hl strong { color: var(--c-accent); }
   .hl.blue   { background: #EFF3FF; border-color: #B8CCFF; }
@@ -258,8 +258,8 @@
 
   /* ── RESPONSIVE height — apila más compacto en pantallas bajas ── */
   @media(max-height:680px){
-    h3 { font-size: clamp(1.3rem,min(3.2vw,4.8vh),2.4rem); }
-    .big { font-size: clamp(0.88rem,min(1.45vw,2.1vh),1.25rem); line-height: 1.45; }
+    h3 { font-size: clamp(1.6rem,min(4vw,6vh),3rem); }
+    .big { font-size: clamp(1.05rem,min(1.8vw,2.7vh),1.55rem); line-height: 1.45; }
     .inner { gap: clamp(8px,1.6vh,14px); }
     .cards { gap: clamp(5px,0.9vh,9px); }
     .card { padding: clamp(8px,1.2vh,12px) clamp(11px,1.2vw,15px); }
@@ -270,11 +270,11 @@
     .slide-module h2 { font-size: clamp(1.5rem,min(4.5vw,6vh),3.2rem); }
   }
   @media(max-height:520px){
-    h3 { font-size: clamp(1.1rem,min(2.6vw,4vh),1.9rem); }
-    .big { font-size: clamp(0.82rem,min(1.2vw,1.8vh),1.05rem); }
+    h3 { font-size: clamp(1.3rem,min(3vw,4.8vh),2.2rem); }
+    .big { font-size: clamp(0.95rem,min(1.4vw,2vh),1.25rem); }
     .inner { gap: 7px; }
-    .card h4 { font-size: 0.78rem; margin-bottom: 2px; }
-    .card p, .s-txt, .hl { font-size: 0.75rem; }
+    .card h4 { font-size: 0.95rem; margin-bottom: 2px; }
+    .card p, .s-txt, .hl { font-size: 0.92rem; }
     .card { padding: 7px 11px; }
     .hl { padding: 6px 11px; }
   }
@@ -1347,16 +1347,6 @@
   <div class="m-num">3</div>
 </section>
 
-<!-- ══════════════════════════════════════
-     BLOQUE 3 · Sección 1 — separador
-════════════════════════════════════════ -->
-<section class="slide slide-module" style="background:var(--c-accent)" data-module="Acceso con el cuerpo">
-  <div class="mcontent">
-    <div class="blq">Bloque 3 · El cuerpo como interfaz</div>
-    <h2>Acceso directo con el cuerpo</h2>
-    <p class="sub">Partes del cuerpo, teclados adaptados y ajustes del sistema operativo.</p>
-  </div>
-</section>
 
 <!-- ══════════════════════════════════════
      SLIDE B3-1 — El acceso directo como punto de partida
@@ -1436,16 +1426,6 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════
-     BLOQUE 3 · Sección 2 — separador
-════════════════════════════════════════ -->
-<section class="slide slide-module" style="background:var(--c-blue)" data-module="Mouse alternativo">
-  <div class="mcontent">
-    <div class="blq">Bloque 3 · Acceso con mouse alternativo</div>
-    <h2>Más allá del mouse estándar</h2>
-    <p class="sub">Joystick, trackball, touchpad y mouse adaptado con botones separados.</p>
-  </div>
-</section>
 
 <!-- ══════════════════════════════════════
      SLIDE B3-5 — Mouse alternativo: opciones
@@ -1609,6 +1589,410 @@
       <div class="card"><h4>Barrido Automático · Shift + Naranja</h4><p><strong>1 pulsador.</strong> El ciclo avanza solo cada 1,5 s. El usuario activa cuando se ilumina el paso deseado.</p></div>
       <div class="card"><h4>Modo Snake · Shift + Azul</h4><p><strong>1 botón, cursor completo.</strong> La flecha derecha mueve el cursor; cada pulsación rota la dirección en ciclo.</p></div>
     </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     BLOQUE 4 — módulo
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-teal)" data-module="Bloque 4">
+  <div class="mcontent">
+    <div class="blq">Bloque 4</div>
+    <h2>Comunicación Alternativa Aumentativa</h2>
+    <p class="sub">Sistemas, dispositivos, vocabulario y herramientas para la comunicación funcional.</p>
+  </div>
+  <div class="m-num">4</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-1 — ¿Qué es la CAA?
+     Mensaje: CAA es un campo de práctica, no una tecnología específica.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="¿Qué es la CAA?">
+  <div class="inner">
+    <h3>¿Qué es la <span class="teal">CAA</span>?</h3>
+    <p class="big">Conjunto de estrategias, técnicas y herramientas que <strong>complementan o reemplazan el habla</strong> cuando esta es insuficiente para satisfacer todas las necesidades comunicativas.</p>
+    <div class="two-col">
+      <div class="card t"><h4>Aumentativa</h4><p>Se suma al habla existente para ampliarla.</p></div>
+      <div class="card t"><h4>Alternativa</h4><p>Reemplaza el habla cuando no existe o es ininteligible.</p></div>
+    </div>
+    <div class="hl teal">La CAA no es una tecnología específica: incluye desde tableros en papel hasta dispositivos generadores de voz. Lo que los unifica es el objetivo: que <strong>toda persona pueda expresarse, participar y relacionarse</strong>.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-2 — Multimodalidad y mitos
+     Mensaje: La CAA no inhibe el habla. La multimodalidad es la norma.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Multimodalidad">
+  <div class="inner">
+    <h3>La regla de oro: <span class="teal">multimodalidad</span></h3>
+    <p class="big">Las personas sin discapacidad comunicamos de forma multimodal: palabras, gestos, expresiones, entonación. El usuario de CAA tiene el mismo derecho.</p>
+    <div class="cards">
+      <div class="card t"><h4>"La CAA inhibe el habla"</h4><p>Falso. La evidencia muestra lo contrario: la CAA apoya y a veces facilita el desarrollo del habla.</p></div>
+      <div class="card t"><h4>"Hay que esperar cierta edad"</h4><p>No existe umbral mínimo. La comunicación es un derecho desde el nacimiento.</p></div>
+      <div class="card t"><h4>"Necesita saber leer"</h4><p>La mayoría de los sistemas usan símbolos pictográficos que no requieren alfabetización.</p></div>
+      <div class="card t"><h4>"Si puede hablar un poco, no necesita CAA"</h4><p>El habla insuficiente para todas las necesidades justifica la CAA.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-3 — El valor de la baja tecnología
+     Mensaje: La baja tecnología tiene ventajas que la alta tecnología no puede igualar.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Baja tecnología">
+  <div class="inner">
+    <h3>El valor de la <span class="teal">baja tecnología</span></h3>
+    <p class="big">No se descarga, no se rompe, no requiere conectividad ni capacitación técnica. Cuesta una fracción de un dispositivo electrónico.</p>
+    <div class="cards">
+      <div class="card t"><h4>Punto de partida ideal</h4><p>Permite explorar vocabulario y estrategias de acceso sin el costo ni la complejidad del dispositivo electrónico.</p></div>
+      <div class="card t"><h4>Sistema de respaldo imprescindible</h4><p>Cuando el dispositivo de alta tecnología falla, el tablero de papel sigue funcionando.</p></div>
+      <div class="card t"><h4>CAA a lo largo de la vida</h4><p>Lactancia, escuela, adultez, condiciones adquiridas (ACV, ELA, demencia). Los sistemas se adaptan a cada etapa.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-4 — Tableros de comunicación
+     Mensaje: El diseño del tablero es clínico, no decorativo.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Tableros de comunicación">
+  <div class="inner">
+    <h3>Tableros de <span class="teal">comunicación</span></h3>
+    <p class="big">Una superficie con símbolos, palabras o letras que el usuario señala. El tipo más simple de CAA con ayuda.</p>
+    <div class="cards">
+      <div class="card t"><h4>Tamaño y contraste</h4><p>Símbolos suficientemente grandes y de alto contraste si hay baja visión.</p></div>
+      <div class="card t"><h4>Número de elementos</h4><p>No más de lo que el usuario puede manejar cognitivamente. Empezar con 2–4 y escalar.</p></div>
+      <div class="card t"><h4>Organización</h4><p>Elementos más frecuentes en posiciones más accesibles: centro o esquina superior izquierda.</p></div>
+      <div class="card t"><h4>Vocabulario equilibrado</h4><p><strong>Core</strong>: alta frecuencia y uso general. <strong>Fringe</strong>: específico al contexto y a la persona.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-5 — Media tecnología: concepto de VOCA
+     Mensaje: La voz grabada tiene valor clínico y emocional propio.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Media tecnología · VOCA">
+  <div class="inner">
+    <h3>Media tecnología: el <span class="teal">VOCA</span></h3>
+    <p class="big">Dispositivos de voz grabada (VOCAs): graban mensajes reales y los reproducen al presionar un botón. La voz que el usuario escucha es la de alguien conocido — un valor clínico y emocional que la síntesis no puede igualar.</p>
+    <div class="two-col">
+      <div class="hl teal"><strong>Ventajas:</strong> robustos, portables, listos en minutos. Sin conectividad ni carga frecuente.</div>
+      <div class="hl teal"><strong>Limitaciones:</strong> vocabulario fijo hasta que alguien lo grabe. Sin predicción ni lenguaje dinámico.</div>
+    </div>
+    <div class="hl teal" style="font-size:clamp(0.95rem,min(1.2vw,1.8vh),1.1rem)">Tres modos de uso: <strong>mensaje único</strong> · <strong>secuencial</strong> · <strong>tablero con múltiples botones</strong>.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-6 — disCom lvls+: sobre el dispositivo
+     Mensaje: Un dispositivo, tres modos, toda una trayectoria terapéutica.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disCom · dispositivo">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span class="tag">dis+capacidad</span>
+        <h3>disCom <span class="accent">lvls+</span></h3>
+      </div>
+      <p class="big">Funciona con pilas. Tres botones de mensaje, selector de nivel y selector de función (Grabar · Reproducir · Borrar).</p>
+      <div class="steps">
+        <div class="step"><div class="s-num">1</div><div class="s-txt"><strong>Modo por Niveles:</strong> hasta 9 mensajes individuales (3 niveles × 3 botones, 3 s cada uno).</div></div>
+        <div class="step"><div class="s-num">2</div><div class="s-txt"><strong>Modo Secuencial:</strong> hasta 90 s totales de mensajes encadenados, de duración libre.</div></div>
+        <div class="step"><div class="s-num">3</div><div class="s-txt"><strong>Pulsadores externos</strong> vía conector PLUG: cualquier sensor puede ser el punto de acceso.</div></div>
+      </div>
+    </div>
+    <div id="ph-discom" class="ph" style="height:100%;min-height:240px" onclick="triggerUpload(this)">
+      <span class="ph-icon">🔊</span>
+      <span class="ph-lbl">Foto: disCom lvls+</span>
+      <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar imagen</button>
+      <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-7 — Modo por Niveles
+     Mensaje: El mismo dispositivo, tres contextos distintos sin cambiar hardware.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disCom · Modo por Niveles">
+  <div class="inner">
+    <h3>Modo por <span class="accent">Niveles</span></h3>
+    <p class="big">Tres botones independientes × tres niveles = tablero de comunicación con salida de voz. Cada nivel es un contexto diferente: aula, merienda, patio — sin cambiar el hardware.</p>
+    <div class="hl">Indicación clínica: usuarios que comprenden causa-efecto y pueden discriminar entre 2–3 opciones espaciales. Es el paso natural desde el mensaje único hacia sistemas más complejos.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-8 — Modo Secuencial
+     Mensaje: El usuario controla el ritmo, no la elección.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disCom · Modo Secuencial">
+  <div class="inner">
+    <h3>Modo <span class="accent">Secuencial</span></h3>
+    <p class="big">Los tres botones actúan como uno solo: cualquier pulsación avanza al siguiente mensaje de una cadena grabada. El usuario controla <strong>cuándo avanzar</strong>, no qué elegir.</p>
+    <div class="two-col">
+      <div class="card"><h4>Casos de uso</h4><p>Rutinas estructuradas · narración de eventos · presentaciones grupales · instrucciones paso a paso.</p></div>
+      <div class="card"><h4>Indicación clínica</h4><p>Usuarios que no pueden seleccionar entre opciones pero sí controlan un único movimiento voluntario.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-9 — Uso con un solo botón
+     Mensaje: El mensaje único no es un techo: es un punto de partida escalable.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disCom · mensaje único">
+  <div class="inner">
+    <h3>Un solo <span class="accent">botón</span></h3>
+    <p class="big">En modo secuencial con un único mensaje, o en modo por niveles con solo un botón activo: el disCom funciona como VOCA de mensaje único.</p>
+    <div class="hl">Cuando el usuario está listo para un segundo mensaje, el dispositivo ya está en sus manos. No hay que introducir un objeto nuevo ni reiniciar el proceso de familiarización.</div>
+    <div class="hl" style="font-size:clamp(0.92rem,min(1.2vw,1.8vh),1.1rem)">El mensaje único es apropiado para <strong>cualquier perfil</strong> cuando la situación lo requiere: un adulto con ELA puede tener el disCom en la mesita de noche con un mensaje de emergencia nocturna.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-10 — disCom como herramienta de evaluación
+     Mensaje: El mismo objeto atraviesa evaluación, entrenamiento y uso.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disCom · evaluación">
+  <div class="inner">
+    <h3>El disCom como herramienta de <span class="accent">evaluación</span></h3>
+    <p class="big">Antes de prescribir CAA de alta tecnología, conviene validar que el usuario comprende causa-efecto comunicativa, puede discriminar opciones y tiene motivación para comunicarse.</p>
+    <div class="steps">
+      <div class="step"><div class="s-num">1</div><div class="s-txt">Validar la <strong>relación causa-efecto</strong> comunicativa.</div></div>
+      <div class="step"><div class="s-num">2</div><div class="s-txt">Confirmar que puede <strong>discriminar entre opciones</strong>.</div></div>
+      <div class="step"><div class="s-num">3</div><div class="s-txt">Evaluar la <strong>motivación</strong> para comunicarse activamente.</div></div>
+    </div>
+    <div class="hl">El mismo dispositivo atraviesa evaluación, entrenamiento y uso. Reduce los saltos del proceso y mantiene la familiaridad.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-11 — Vocabulario core y fringe
+     Mensaje: El vocabulario core es el motor; el fringe, el combustible específico.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Vocabulario core y fringe">
+  <div class="inner">
+    <h3>Vocabulario <span class="teal">core</span> y <span class="teal">fringe</span></h3>
+    <p class="big">El <strong>core</strong> es el 75–80% de todo lo que decimos: palabras funcionales (verbos, pronombres, adjetivos básicos) usables en cualquier contexto. El <strong>fringe</strong> es específico a personas, lugares y temas concretos.</p>
+    <div class="cards">
+      <div class="card t"><h4>Core: posición estable</h4><p>El usuario desarrolla memoria motora de la posición. Si el sistema cambia las palabras de lugar, ese aprendizaje se pierde.</p></div>
+      <div class="card t"><h4>Fringe: páginas temáticas</h4><p>Accesible desde la página principal. Actualizable por contexto sin mover el vocabulario core.</p></div>
+      <div class="card t"><h4>La combinación</h4><p>"Quiero" (core) + "pizza" (fringe). "No me gusta" (core) + "el fisio de los martes" (fringe). La CAA efectiva tiene acceso a ambos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-12 — Número de elementos y complejidad del sistema
+     Mensaje: Empezar conservador y escalar según el desempeño.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Complejidad del sistema">
+  <div class="inner">
+    <h3>Número de elementos y <span class="teal">complejidad</span></h3>
+    <p class="big">La cantidad de elementos debe ser la mayor que el usuario pueda manejar <strong>eficientemente</strong>. Más no siempre es mejor.</p>
+    <div class="two-col">
+      <div class="hl teal">Punto de partida: <strong>9–16 elementos</strong> para usuarios nuevos.</div>
+      <div class="hl teal">La expansión se hace gradualmente, a medida que el usuario demuestra dominio y necesita más opciones.</div>
+    </div>
+    <div class="hl teal">Un sistema con demasiados elementos puede ser <strong>más difícil de usar</strong> que uno más compacto y bien organizado.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-13 — Criterios de selección del sistema
+     Mensaje: La selección del sistema es una decisión clínica multidimensional.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Criterios de selección">
+  <div class="inner">
+    <h3>Criterios de selección del <span class="teal">sistema</span></h3>
+    <div class="cards">
+      <div class="card t"><h4>Método de acceso</h4><p>¿El sistema es operable con el método de acceso del usuario (touch, pulsador, eye gaze, head mouse)?</p></div>
+      <div class="card t"><h4>Vocabulario</h4><p>¿Organiza el vocabulario de una manera que tenga sentido para las necesidades del usuario?</p></div>
+      <div class="card t"><h4>Robustez y portabilidad</h4><p>¿Puede soportar el uso cotidiano? ¿Peso y tamaño adecuados?</p></div>
+      <div class="card t"><h4>Soporte y costo</h4><p>¿Hay soporte técnico local? ¿Hay mecanismos de cobertura (seguro, gobierno, ONG)?</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-14 — Técnica del modelado (ALI)
+     Mensaje: Para que el usuario use la CAA, los que lo rodean deben usarla también.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Técnica del modelado">
+  <div class="inner">
+    <h3>Modelado del lenguaje: <span class="teal">ALI</span></h3>
+    <p class="big">Si queremos que el usuario use la CAA, los comunicadores que lo rodean deben usar ese mismo sistema cuando hablan con él. Así como los niños aprenden el habla porque escuchan habla, los usuarios de CAA aprenden usándola cuando <strong>ven a otros comunicarse con ella</strong>.</p>
+    <div class="cards">
+      <div class="card t"><h4>Usar el sistema del usuario</h4><p>Modelar en el dispositivo del usuario, no verbalmente ni con un sistema diferente.</p></div>
+      <div class="card t"><h4>Contextos naturales</h4><p>Durante el juego, la merienda, las rutinas. No como ejercicio separado.</p></div>
+      <div class="card t"><h4>Sin exigir imitación inmediata</h4><p>El modelado es exposición, no instrucción. Se da el ejemplo y se da tiempo.</p></div>
+      <div class="card t"><h4>El entorno es parte del equipo</h4><p>Familia, cuidadores, docentes y pares deben ser capacitados. La mayor parte del tiempo del usuario no transcurre en la clínica.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-15 — Principio de disponibilidad permanente
+     Mensaje: Un dispositivo que no está disponible no es una herramienta de comunicación: es un objeto.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Disponibilidad permanente">
+  <div class="inner">
+    <h3>Principio de <span class="teal">disponibilidad permanente</span></h3>
+    <p class="big">Un dispositivo de CAA que no está disponible cuando se necesita no es una herramienta de comunicación: es un objeto. El sistema debe estar disponible en <strong>todo momento, en todos los contextos</strong>, sin depender de que alguien recuerde ponerlo al alcance.</p>
+    <div class="steps">
+      <div class="step"><div class="s-num" style="background:var(--c-teal)">1</div><div class="s-txt">Montado en silla de ruedas, cochecito o escritorio: acceso autónomo sin asistencia.</div></div>
+      <div class="step"><div class="s-num" style="background:var(--c-teal)">2</div><div class="s-txt">Brazo articulado ajustable (Daessy, REHAdapt, RAM Mount) con liberación rápida para traslados.</div></div>
+      <div class="step"><div class="s-num" style="background:var(--c-teal)">3</div><div class="s-txt">Ángulo, altura y distancia ajustados al método de acceso: táctil, eye gaze o head mouse.</div></div>
+    </div>
+    <div class="hl teal">La autonomía comunicativa comienza con la <strong>autonomía de acceso al sistema</strong>.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     BLOQUE 4 · Anexo AsTeRICS Grid — separador
+════════════════════════════════════════ -->
+<section class="slide slide-module" style="background:var(--c-accent)" data-module="Anexo AsTeRICS Grid">
+  <div class="mcontent">
+    <div class="blq">Bloque 4 · Anexo</div>
+    <h2>AsTeRICS Grid</h2>
+    <p class="sub">CAA de alta tecnología, gratuita, multiplataforma y accesible con cualquier método de entrada.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-16 — Conceptos básicos sobre AsTeRICS Grid
+     Mensaje: Gratuito, multiplataforma y sin techo de acceso.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="AsTeRICS Grid · conceptos básicos">
+  <div class="inner">
+    <h3><span class="accent">AsTeRICS Grid</span></h3>
+    <p class="big">Aplicación web gratuita y de código abierto para CAA. Funciona en el navegador — sin instalación — en Windows, macOS, Android, iOS y Linux. Dirección: <strong>grid.asterics.eu</strong></p>
+    <div class="cards">
+      <div class="card"><h4>Tablero</h4><p>Cuadrícula de elementos visuales. Cada elemento tiene imagen, texto, color y una o más acciones asignadas.</p></div>
+      <div class="card"><h4>Acciones</h4><p>Pronunciar texto · grabar voz · navegar a otro tablero · acumular frase · acción del sistema.</p></div>
+      <div class="card"><h4>Tablero global</h4><p>Se muestra sobre todos los demás. Para vocabulario core (sí, no, quiero, ayuda) que debe estar siempre visible.</p></div>
+      <div class="card"><h4>Por qué en este curso</h4><p>Gratuito + multiplataforma + soporte real de acceso indirecto. Un usuario puede pasar de toque a barrido sin cambiar de sistema.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-17 — Método: Toque directo o clic
+     Mensaje: El modo predeterminado, sin configuración especial.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="AsTeRICS Grid · toque directo">
+  <div class="inner">
+    <h3>Acceso: <span class="accent">toque directo</span> o clic</h3>
+    <p class="big">Modo predeterminado. Sin configuración especial. Los elementos se seleccionan tocando la pantalla o haciendo clic.</p>
+    <div class="cards">
+      <div class="card"><h4>Clic / toque simple</h4><p>Comportamiento habitual. Acceso directo sin restricción motora significativa.</p></div>
+      <div class="card"><h4>Doble clic</h4><p>Para usuarios que tienden a activaciones involuntarias con un solo toque.</p></div>
+      <div class="card"><h4>Seleccionar al presionar</h4><p>Activa el elemento en el momento de presión, sin esperar a soltar. Útil con eye tracking + pulsador externo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-18 — Método: Barrido (Scanning)
+     Mensaje: Un pulsador puede hacer dos cosas con hold duration.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="AsTeRICS Grid · barrido">
+  <div class="inner">
+    <h3>Acceso: <span class="accent">barrido</span> (Scanning)</h3>
+    <p class="big">Los elementos se agrupan y el resaltado los recorre. El usuario activa cuando el grupo o elemento deseado está resaltado. Mismo principio que Switch Control (iOS) y Switch Access (Android).</p>
+    <div class="cards">
+      <div class="card"><h4>Barrido automático · 1 pulsador</h4><p>El resaltado avanza solo cada N segundos. El usuario solo selecciona.</p></div>
+      <div class="card"><h4>Barrido paso a paso · 2 pulsadores</h4><p>Un botón avanza, otro selecciona. El usuario controla el ritmo.</p></div>
+      <div class="card"><h4>1 pulsador, 2 funciones</h4><p>Pulsación corta = avanzar · pulsación larga (hold duration) = seleccionar. Un solo punto de acceso, dos funciones.</p></div>
+      <div class="card"><h4>Parámetros clave</h4><p><strong>Timeout:</strong> pausa entre acciones (equivale al debounce). <strong>Duración de pulsación:</strong> tiempo mínimo para registrar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-19 — Método: Entrada por dirección
+     Mensaje: Más eficiente que el barrido para usuarios con 4–5 movimientos confiables.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="AsTeRICS Grid · dirección">
+  <div class="inner">
+    <h3>Acceso: entrada por <span class="accent">dirección</span></h3>
+    <p class="big">Usa 2–5 eventos: uno para seleccionar y hasta cuatro para moverse (↑↓←→). El resaltado salta directamente al elemento más cercano en la dirección indicada.</p>
+    <div class="two-col">
+      <div class="hl">Más eficiente que el barrido cuando el usuario tiene <strong>control de 4–5 movimientos voluntarios confiables</strong>.</div>
+      <div class="hl">El método que mejor aprovecha las <strong>cuatro flechas del disMouse</strong> configuradas como teclas de dirección + Botón Rojo como selección.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-20 — Método: Entrada secuencial
+     Mensaje: El paso más simple después del barrido automático.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="AsTeRICS Grid · secuencial">
+  <div class="inner">
+    <h3>Acceso: entrada <span class="accent">secuencial</span></h3>
+    <p class="big">Exactamente 2 eventos: uno para avanzar al siguiente elemento y otro para seleccionar el actual. Resalta los elementos <strong>de uno en uno</strong>, sin agruparlos.</p>
+    <div class="two-col">
+      <div class="hl">Recomendada para <strong>iniciación al barrido paso a paso</strong>: menos demanda cognitiva que el barrido por grupos y feedback visual inmediato.</div>
+      <div class="hl">El usuario ve exactamente qué elemento está resaltado en cada momento. Sin ambigüedad de fila/columna.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-21 — Método: Entrada Huffman
+     Mensaje: Acceso directo a cada elemento con un botón distinto — sin barrido.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="AsTeRICS Grid · Huffman">
+  <div class="inner">
+    <h3>Acceso: entrada <span class="accent">Huffman</span></h3>
+    <p class="big">Cada elemento recibe un código único de eventos. Los elementos más frecuentes tienen códigos más cortos. Con el disMouse (4 botones + 4 flechas = 8 eventos), hasta <strong>8 elementos con acceso directo de un solo toque</strong>.</p>
+    <div class="cards">
+      <div class="card"><h4>Sin barrido</h4><p>El usuario presiona el botón que corresponde al elemento. No espera, no navega filas.</p></div>
+      <div class="card"><h4>Más eficiente</h4><p>Para tableros de 4–8 elementos con igual número de movimientos voluntarios disponibles.</p></div>
+      <div class="card"><h4>Más de 8 elementos</h4><p>Codes de 2 pasos. El sistema filtra visualmente los elementos restantes tras el primer evento.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-22 — Método: Control por permanencia (Dwell)
+     Mensaje: Para quien puede mover el cursor pero no tiene un segundo punto de acceso confiable.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="AsTeRICS Grid · dwell">
+  <div class="inner">
+    <h3>Acceso: <span class="accent">permanencia</span> (Dwell)</h3>
+    <p class="big">Activa el elemento cuando el cursor permanece quieto sobre él el tiempo configurado. Sin pulsación adicional. Para usuarios que pueden mover el cursor pero <strong>no tienen un segundo punto de acceso confiable para el clic</strong>.</p>
+    <div class="cards">
+      <div class="card"><h4>Tiempo de permanencia</h4><p>Empezar en 1.500 ms y ajustar según el desempeño. Demasiado corto genera activaciones involuntarias.</p></div>
+      <div class="card"><h4>Leer elemento activo</h4><p>Anuncia en voz alta el elemento al pasar sobre él. Feedback auditivo sin seleccionar.</p></div>
+      <div class="card"><h4>Con disMouse</h4><p>Flechas en modo cursor → el usuario mueve el cursor. Dwell activo → el sistema selecciona al detenerse. Sin necesidad de botón de clic.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE B4-23 — disMouse para AsTeRICS Grid
+     Mensaje: Un dispositivo, seis métodos de acceso, todo configurable desde el Configurador.
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="disMouse · AsTeRICS Grid">
+  <div class="inner">
+    <h3>disMouse para <span class="accent">AsTeRICS Grid</span></h3>
+    <table class="mini-table">
+      <tr><th>Método en AsTeRICS Grid</th><th>Flechas disMouse</th><th>Botones disMouse</th></tr>
+      <tr><td><strong>Cursor + dwell</strong></td><td>Modo cursor</td><td>No necesarios (o backup)</td></tr>
+      <tr><td><strong>Cursor + clic</strong></td><td>Modo cursor</td><td>Rojo = Clic izquierdo</td></tr>
+      <tr><td><strong>Barrido automático</strong></td><td>—</td><td>Rojo = Espacio / Enter</td></tr>
+      <tr><td><strong>Barrido paso a paso</strong></td><td>—</td><td>Rojo = Avanzar · Azul = Seleccionar</td></tr>
+      <tr><td><strong>Entrada por dirección</strong></td><td>Modo teclas ↑↓←→</td><td>Rojo = Espacio (seleccionar)</td></tr>
+      <tr><td><strong>Huffman (hasta 8 elem.)</strong></td><td>Teclas 5–8</td><td>4 botones = teclas 1–4</td></tr>
+    </table>
+    <div class="hl">El debounce se configura de forma <strong>independiente por botón</strong> en el Configurador dis+. Permite compensar diferencias motoras entre distintos puntos de acceso del mismo usuario.</div>
   </div>
 </section>
 
