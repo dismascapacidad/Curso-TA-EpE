@@ -336,6 +336,18 @@
 </section>
 
 <!-- ══════════════════════════════════════
+     APERTURA — Por qué esto importa
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Por qué esto importa">
+  <div class="inner" style="max-width:780px">
+    <h3>Por qué <span class="accent">esto importa</span></h3>
+    <p class="big">Si la persona con discapacidad es realmente el centro, entonces lo que le pasa al equipo que la atiende no es un detalle. Es parte del mismo problema.</p>
+    <p class="big">Un equipo mejor formado, con mejores herramientas y con capacidad para incorporar recursos nuevos, inevitablemente le ofrece más a esa persona. No hay forma de que no sea así.</p>
+    <div class="hl accent">Equipar para Equipar es hacerse cargo de esa lógica. Este curso es parte de eso.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
      BLOQUE 1 — módulo
 ════════════════════════════════════════ -->
 <section class="slide slide-module" style="background:var(--c-accent)" data-module="Bloque 1">
@@ -1983,6 +1995,43 @@
       <tr><td><strong>Huffman (hasta 8 elem.)</strong></td><td>Teclas 5–8</td><td>4 botones = teclas 1–4</td></tr>
     </table>
     <div class="hl">El debounce se configura de forma <strong>independiente por botón</strong> en el Configurador dis+. Permite compensar diferencias motoras entre distintos puntos de acceso del mismo usuario.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CIERRE — Seguimos en contacto
+════════════════════════════════════════ -->
+<section class="slide slide-content" data-module="Seguimos en contacto">
+  <div class="split">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <h3>Seguimos en <span class="accent">contacto</span></h3>
+        <p class="big" style="font-size:clamp(1rem,1.4vw,1.2rem);color:var(--c-mid)">Gonzalo Nanzer · dis+capacidad</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="font-size:1.3rem;width:1.6rem;text-align:center">✉</span>
+          <span style="font-size:clamp(0.95rem,1.3vw,1.1rem)">dismascapacidad@gmail.com</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="font-size:1.3rem;width:1.6rem;text-align:center">🌐</span>
+          <span style="font-size:clamp(0.95rem,1.3vw,1.1rem)">www.dismascapacidad.com.ar</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="font-size:1.3rem;width:1.6rem;text-align:center">📷</span>
+          <span style="font-size:clamp(0.95rem,1.3vw,1.1rem)">@dismascapacidad</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+      <div class="ph" style="width:220px;height:220px;border-radius:var(--radius)" onclick="triggerUpload(this)">
+        <span class="ph-icon">📋</span>
+        <span class="ph-lbl">QR — Encuesta de cierre</span>
+        <button class="ph-btn" onclick="event.stopPropagation()">+ Agregar QR</button>
+        <input type="file" accept="image/*" onchange="loadImage(event,this.parentElement)">
+      </div>
+      <p style="font-size:clamp(0.85rem,1.1vw,0.95rem);color:var(--c-mid);text-align:center;max-width:24ch">Contanos qué te llevás y qué mejorarías.</p>
+    </div>
   </div>
 </section>
 
