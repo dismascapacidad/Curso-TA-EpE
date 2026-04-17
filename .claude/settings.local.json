@@ -4,7 +4,14 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(where python:*)",
       "Bash(where python3:*)",
-      "Bash(where node:*)"
+      "Bash(where node:*)",
+      "Read(//c/Users/Gon Nanzer/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/7fbec651-9d30-4763-bbcb-8aab61336d8d/1434c961-5d6d-49d4-8f4d-7a1745a48b87/skills/pdf/**)",
+      "Bash(python -c ':*)",
+      "Bash(pip list:*)",
+      "Bash(pip install:*)",
+      "Bash(python -c \"print\\(open\\('C:/Users/GonNanzer/AppData/Local/Temp/bloque3.txt', encoding='utf-8'\\).read\\(\\)\\)\")",
+      "Bash(python -c \"import os; print\\(os.environ.get\\('TEMP'\\)\\); print\\(os.environ.get\\('USERPROFILE'\\)\\)\")",
+      "Bash(python3 -c ':*)"
     ]
   }
 }
