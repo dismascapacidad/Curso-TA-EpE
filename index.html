@@ -280,6 +280,25 @@
     .hl { padding: 6px 11px; }
   }
 
+  /* ── BRAND LOGO (fixed, all slides except cover) ── */
+  #brand-logo {
+    position: fixed;
+    top: clamp(10px, 2vh, 20px);
+    right: clamp(16px, 3vw, 48px);
+    z-index: 500;
+    transition: opacity var(--t);
+  }
+  #brand-logo img {
+    height: clamp(26px, 3.2vh, 38px);
+    width: auto;
+    display: block;
+    background: rgba(255,255,255,0.88);
+    border-radius: 8px;
+    padding: 5px 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+  }
+  #brand-logo.hidden { opacity: 0; pointer-events: none; }
+
   /* ── ANIMATIONS ── */
   .slide.active .inner > *, .slide.active .split > *, .slide.active .mcontent > * {
     animation: fup .42s ease both;
@@ -302,7 +321,9 @@
      PORTADA
 ════════════════════════════════════════ -->
 <section class="slide slide-cover active" data-module="Portada">
-  <div class="eyebrow">dis+capacidad · Curso</div>
+  <div style="background:rgba(255,255,255,0.92);border-radius:12px;padding:10px 22px;margin-bottom:4px;box-shadow:0 1px 8px rgba(0,0,0,0.08)">
+    <img src="assets/img/logo dis+capacidad horizontal.png" alt="dis+capacidad" style="height:40px;width:auto;display:block">
+  </div>
   <h1>Tecnología Asistiva<br>+ Equipar para Equipar</h1>
   <p class="subtitle">Un recorrido por el proceso clínico, los dispositivos y las herramientas de acceso.</p>
   <div class="logo-area">
@@ -1979,6 +2000,10 @@
   <img id="modal-img" src="" alt="">
 </div>
 
+<div id="brand-logo" class="hidden">
+  <img src="assets/img/logo dis+capacidad horizontal.png" alt="dis+capacidad">
+</div>
+
 <script>
   const slides = Array.from(document.querySelectorAll('.slide'));
   let cur = 0, busy = false;
@@ -1990,6 +2015,7 @@
     document.getElementById('btn-p').disabled = cur===0;
     document.getElementById('btn-n').disabled = cur===tot-1;
     document.getElementById('mod-ind').textContent = slides[cur].dataset.module||'';
+    document.getElementById('brand-logo').classList.toggle('hidden', cur===0);
   }
 
   function goTo(n){
