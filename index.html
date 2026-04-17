@@ -41,6 +41,14 @@
     background: var(--c-accent); width: 0%; transition: width var(--t); pointer-events: none;
   }
   #progress-track:hover #progress-bar { height: 5px; }
+  .progress-milestone {
+    position: absolute; bottom: 0; width: 2px; height: 10px;
+    background: var(--c-bg); transform: translateX(-50%);
+    pointer-events: all; cursor: pointer; z-index: 3;
+    border-radius: 1px 1px 0 0; opacity: 0.9;
+    transition: height .2s, opacity .2s;
+  }
+  #progress-track:hover .progress-milestone { height: 13px; opacity: 1; }
 
   /* ── DECK ── */
   #deck { position: fixed; inset: 0; }
@@ -2051,9 +2059,22 @@
 <script>
   const slides = Array.from(document.querySelectorAll('.slide'));
   let cur = 0, busy = false;
+  const tot = slides.length;
+
+  // Mojones de bloque en la barra de progreso
+  const track = document.getElementById('progress-track');
+  slides.forEach((slide, i) => {
+    if (!slide.classList.contains('slide-module')) return;
+    const pct = (i / (tot - 1)) * 100;
+    const mark = document.createElement('div');
+    mark.className = 'progress-milestone';
+    mark.style.left = pct + '%';
+    mark.title = slide.dataset.module || '';
+    mark.addEventListener('click', e => { e.stopPropagation(); goTo(i); });
+    track.appendChild(mark);
+  });
 
   function updateUI(){
-    const tot = slides.length;
     document.getElementById('ctr').textContent = `${cur+1} / ${tot}`;
     document.getElementById('progress-bar').style.width = `${(cur/(tot-1))*100}%`;
     document.getElementById('btn-p').disabled = cur===0;
